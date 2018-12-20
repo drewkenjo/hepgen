@@ -1,3 +1,5 @@
+use root
+
 setenv CVS_RSH ssh
 #setenv PYTHONPATH /group/clasdev/local/lib/python
 setenv MYSQLINC /usr/include/mysql

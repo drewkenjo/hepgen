@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-import math
+import math, sys
 import lhepgen
 
 # Get the xsec for some specific kinematic point.
 # While Qsq is mandatory, you can choose between nu/W/xbj and t/t'.
 def get_xsec(Qsq, nu=None, W=None, xbj=None, t=None, tprim=None, phi=0.0, Ein=5.75, table=None):
+    print(sys.argv)
     m_P = 0.93827203
 
     # Create an instance of 'hWeightInterface'. It is used to define the kinematics  used in the calculation.
