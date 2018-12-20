@@ -31,6 +31,9 @@
 #include "Math/Functor.h"
 #include "Math/GaussIntegrator.h"
 
+using std::cout;
+using std::dec;
+using std::endl;
 
 namespace GKPI0 {
 /*! \brief contains amplitudes twist3 */
@@ -40,11 +43,11 @@ typedef struct {
     TComplex Mmmp0;
     TComplex Mppp0;
     TComplex Mpmp0;
-    
+
     //twist2 contribution
     TComplex M0pp;
     TComplex M0mp;
-    
+
     double tprime;
     double xi;
     double qsq;
@@ -65,7 +68,7 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu );
 /*! \brief Function that is being serialized in square root for the GPDs*/
 double hi ( double i, int flag, double xb, double xi, double t, double Qsq, double bu, double k );
 
-/*! \brief GPD HTbar for d- and u-quarks 
+/*! \brief GPD HTbar for d- and u-quarks
  * \param int n: n=1 for u-quarks, n=2 for d-quarks
  */
 double HTValence ( double xb, double xi, double t, double Qsq, double bu, int n );
@@ -111,7 +114,7 @@ double getMuR(double x, double b, double Q);
 double cf (int nc);
 
 
-/*! \brief this loads subprocess amplitudes from arrays given already in ram 
+/*! \brief this loads subprocess amplitudes from arrays given already in ram
  */
 int loadPreparationFromRam(double _xbj, std::vector<TComplex>& _xlowTwist3,std::vector<TComplex>& _xhighTwist3,std::vector<TComplex>& _xlowTwist2,std::vector<TComplex>& _xhighTwist2,std::vector<double>& _xlow,std::vector<double>& _xhigh, std::vector<double>& _weights, std::vector<double>& _xpseudo);
 
@@ -127,7 +130,7 @@ int savePreparationToRam(double xbj, std::vector<TComplex>& xlowTwist3,std::vect
  */
 int loadPreparationFromFile(std::string _fileName,double _qsq, double _xi);
 
-/*! \brief saves preparated table of subprocess amplitudes to a file 
+/*! \brief saves preparated table of subprocess amplitudes to a file
  * \return -1 if failure in opening file
  * -2 if preparation was not done yet!
  * number of written lines if success
@@ -143,8 +146,6 @@ TComplex subProcessTwist3( double _Qsq, double _x, double _xi, double epsilon);
 
 /*! \brief Integrated suprocess amplitude for twist2 - LT, L contributions part*/
 TComplex subProcessTwist2( double _Qsq, double _x, double _xi, double epsilon);
-
-
 
 /*! \brief calculates the points for the gauss-legendre-integration to convolute the subprocess amplitudes with the GPDs */
 void prepareConvolution(double _qsq, double _xi);
@@ -167,6 +168,10 @@ double getCXLT(amplitude& _myAmp, double _W, double _phi);
 double getCXL(amplitude& _myAmp, double _W);
 
 
+void SetReactionPar(int iflag);
+void PrintReactionParms();
+
+
 
 
 /*! \brief just a hankel function */
@@ -178,19 +183,8 @@ double besselK0 ( double x );
 /*! \brief cylindrical bessel function of 0. order */
 double I0 ( double a, double b );
 
+
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif
 

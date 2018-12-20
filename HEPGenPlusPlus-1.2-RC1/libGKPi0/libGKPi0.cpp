@@ -1,12 +1,63 @@
 #include "libGKPi0.h"
+#include <iostream>
+
+using std::cout;
+using std::dec;
+using std::endl;
+#define ETA
+#define NEUTRON
 
 namespace GKPI0 {
 
+// g* + p--> pi0 + p
+  double f_pi=0.132;
+  double _mix_angle=1.0/sqrt(2.0);
+  double _sign=1.;
+  double charge1=2.0/3.0;
+  double charge2=-1.0/3.0;
 
+// g* + p --> eta + p
+//  double  f_pi=0.132*1.26;
+//  double  _mix_angle=1.158/sqrt(6.0);
+//  double  _sign=-1.0;
+//  double  charge1=2.0/3.0;
+//  double  charge2=-1.0/3.0;
 
+// g* + n --> pi0 + p
+//  double f_pi=0.132;
+//  double _mix_angle=1.0/sqrt(2.0);
+//  double _sign=1.0;
+//  double charge1=-1.0/3.0;
+//  double charge2=2.0/3.0;
 
+// g* + n --> eta + p
+//  double f_pi=0.132*1.26;
+//  double _mix_angle=1.158/sqrt(6.0);
+//  double _sign=-1.0;
+//  double charge1=-1.0/3.0;
+//  double charge2=2.0/3.0;
 
-//********************** GPD STUFF **************************************
+//=========================================================//
+
+//#ifdef ETA
+  //double f_pi=0.132*1.26;
+  //Mixing angle for eta: (cos(-21.2^0)-sqrt(2)*sin(-9.2^0)=1.158)/sqrt(6.0)
+  //double _mix_angle=1.158/sqrt(6.0);
+  //double _sign=-1.;
+//#else
+  //double f_pi=0.132;
+  //double _mix_angle=1.0/sqrt(2.0);
+  //double _sign=1.;
+//#endif
+
+//#ifdef NEUTRON
+  //double charge1=-1.0/3.0;
+  //double charge2=2.0/3.0;
+//#else
+  //double charge1=2.0/3.0;
+  //double charge2=-1.0/3.0;
+//#endif
+
 
 /*! \brief taken from private communication with P. Kroll
  *
@@ -73,15 +124,17 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
 
     delta=0.3;
     double L = log ( Qsq / Q0 );
-    double nu = 6.83;
+    //vpk
+    //double nu = 6.83;
+    double nu = 4.83;
     double c[3] = {1.0,
                    0.0,
                    -1.0
                   };
 
 
-
-    delta=-0.1;
+    //vpk
+    //    delta=-0.1;
 
     double k = delta + alphastr * t;
     double xdiff = xb - xi;
@@ -115,10 +168,13 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
 
 
     //0916_newParams
-    delta=-0.1;
+    //vpk
+    //    delta=-0.1;
     double k = delta + alphastr * t;
 
-    double Nd = 5.05;
+    //vpk
+    //double Nd = 5.05;
+    double Nd = 3.57;
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
@@ -341,7 +397,16 @@ TComplex Hankel0 ( double x ) {
 double    mu_pi = 2.0;
 
 //private communication
-double    f_pi = 0.132;
+
+
+// f_pi=1.26*0.132=0.16632 for eta
+//  double f_eta=0.132*1.26;
+//#ifdef ETA
+//  double f_pi=0.132*1.26;
+//#else
+//  double f_pi=0.132;
+//#endif
+
 double    a_p = 1.8;
 // double f_pi;
 // double mu_pi;
@@ -366,7 +431,7 @@ double HTildeHi(double ii, int HiFlag, double k) {
     else if (HiFlag == 1) {
         return 3./2./pow(xi,3.0)*(pow(((x+xi)/(1.+xi)),(2.+ii-k))*(pow(xi,2.0)-x+(2.+ii-k)*xi*(1.-x)))
                /(1.+ii-k)/(2.+ii-k)/(3.+ii-k);
-    } 
+    }
     else if (HiFlag == 2) {
         return 3./2./pow(xi,3.0)/(1.+ii-k)/(2.+ii-k)/(3.+ii-k)*((pow(xi,2.0)-x)*( pow(((x+xi)/(1.+xi)),(2.+ii-k))
                 - pow(( (x-xi)/(1.-xi)),(2.+ii-k)))
@@ -493,9 +558,10 @@ double ETilde(double _xb, double _xi, double _t, double _Qsq, double _bu, int _n
     Qsq = _Qsq;
 //     t = _t;
     double myDelta = 0.48;
-    
+
     //0916_newParams
-    myDelta = 0.32;
+    //vpk
+    //myDelta = 0.32;
 
     double myAlphaStr = 0.45;
     double nu[2];
@@ -586,7 +652,11 @@ TComplex subProcessTwist3GaussInt( double _Qsq, double _x, double _xi , double e
     mu_pi = 2.0;
 
     //private communication
-    f_pi = 0.132;
+// f_pi=1.26*0.132=0.16632 for eta
+//    f_pi=0.132;
+//#ifdef ETA
+//    f_pi = 0.16632;
+//#endif
     a_p = 1.8;
     TComplex result = TComplex(0.0,0.0);
     double intStep = 1./128.;
@@ -646,8 +716,10 @@ double phiAS(double z) {
 
 
 TComplex fullIntFuncTwist2(double _b, double _z, int uFlag) {
-    //private communication, not in releases
-    double apisq = 1./8./pow(M_PI,2.0)/pow(f_pi,2.0);
+  //private communication, not in releases
+  //vpk: f_pi for eta is still 0.132
+
+    double apisq = 1./8./pow(M_PI,2.0)/pow(0.132,2.0);
 
     //z-refactoring for this wavefunction used in twist-2 case
     double z = _z * (1.-_z);
@@ -773,7 +845,7 @@ int loadIntegrationValues(double _xi)
     }
 
     std::string fileName = hepPath + "/share/tables/pi0-grid.dat";
-    printf("Loading gauss integration values from %s!\n",fileName.c_str());
+    //    printf("Loading gauss integration values from %s!\n",fileName.c_str());
     myFile.open(fileName, std::ifstream::in);
     std::string line;
     while(!myFile.eof()) {
@@ -873,16 +945,26 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 
 
     //0916 newParams
-    hbd=0.0;
-    hbu=0.0;
+    //vpk
+    //hbd=0.0;
+    //hbu=0.0;
 
     //new t dependant constants for renormalization of GPDs with t
-    double NEtilde=1.3;
-    double BEtilde=-0.3;
-    double NETBar=4.28;
-    double BETBar=0.17;
-    double NHTValenz=0.62;
-    double BHTValenz=-0.26;
+
+    //vpk we don't need for a moment the normalization factor
+    //double NEtilde=1.3;
+    //double BEtilde=-0.3;
+    //double NETBar=4.28;
+    //double BETBar=0.17;
+    //double NHTValenz=0.62;
+    //double BHTValenz=-0.26;
+
+    double NEtilde=1.;
+    double BEtilde=0.;
+    double NETBar=1.;
+    double BETBar=0.;
+    double NHTValenz=1.;
+    double BHTValenz=-0.;
 
     double ETildeReFac=NEtilde*exp(_t*BEtilde);
     double ETBarReFac=NETBar*exp(_t*BETBar);
@@ -898,7 +980,7 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     double etd=0.9;
 
 
-    
+
     double htu=0.59;
     double htd=0.59;
 
@@ -912,8 +994,10 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 
     double HTxi,EBarxi;
     //for cauchy principal value we need the poles K(x=xi,xi,t) ! also in the form of the upper GPDs
-    EBarxi = ETBarReFac* 1./sqrt(2.0)*(charge_u*EBarU(_xi,_xi,_t,_qsq,ebu)-charge_d*EBarD(_xi,_xi,_t,_qsq,ebd));
-    HTxi = HTValenzReFac*  1./sqrt(2.0)*(charge_u*HTValence(_xi,_xi,_t,_qsq,hbu,1)-charge_d*HTValence(_xi,_xi,_t,_qsq,hbd,2));
+
+    EBarxi = ETBarReFac*     _mix_angle*(charge1*EBarU(_xi,_xi,_t,_qsq,ebu)      -_sign*charge2*EBarD(_xi,_xi,_t,_qsq,ebd));
+    HTxi   = HTValenzReFac*  _mix_angle*(charge1*HTValence(_xi,_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(_xi,_xi,_t,_qsq,hbd,2));
+
     //printf("EBarxi %.4e, HTValxi %.4e\n",EBarxi,HTxi);
 
 
@@ -921,13 +1005,11 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     for (unsigned int i = 0; i < 128; i ++) {
         //twist-2 integration
         //FIXME: the norm fac 1/sqrt(2) should be put into the respective Nu,Nd,... of the GPDs to be consistent with PK
-        double htildelow = 1./sqrt(2.0)*(charge_u*HTildeGaussian(xLow[i],_xi,_t,_qsq,0)-charge_d*HTildeGaussian(xLow[i],_xi,_t,_qsq,1));
-        double htildehigh = 1./sqrt(2.0)*(charge_u*HTildeGaussian(xHigh[i],_xi,_t,_qsq,0)-charge_d*HTildeGaussian(xHigh[i],_xi,_t,_qsq,1));
-        double etildelow = ETildeReFac* 1./sqrt(2.0)*(charge_u*ETilde(xLow[i],_xi,_t,_qsq,etu,0)-charge_d*ETilde(xLow[i],_xi,_t,_qsq,etd,1));
-        double etildehigh = ETildeReFac* 1./sqrt(2.0)*(charge_u*ETilde(xHigh[i],_xi,_t,_qsq,etu,0)-charge_d*ETilde(xHigh[i],_xi,_t,_qsq,etd,1));
 
-
-	
+      double htildelow =  _mix_angle*(charge1*HTildeGaussian( xLow[i],_xi,_t,_qsq,0)-_sign*charge2*HTildeGaussian( xLow[i],_xi,_t,_qsq,1));
+      double htildehigh = _mix_angle*(charge1*HTildeGaussian(xHigh[i],_xi,_t,_qsq,0)-_sign*charge2*HTildeGaussian(xHigh[i],_xi,_t,_qsq,1));
+      double etildelow =  ETildeReFac* _mix_angle*(charge1*ETilde(xLow [i],_xi,_t,_qsq,etu,0)-_sign*charge2*ETilde(xLow[i],_xi,_t,_qsq,etd,1));
+      double etildehigh = ETildeReFac* _mix_angle*(charge1*ETilde(xHigh[i],_xi,_t,_qsq,etu,0)-_sign*charge2*ETilde(xHigh[i],_xi,_t,_qsq,etd,1));
         HintT2L =HintT2L + weights[i]*xLowResultTwist2[i]*htildelow;
         HintT2H =HintT2H + weights[i]*xHighResultTwist2[i]*htildehigh;
         EintT2L =EintT2L + weights[i]*xLowResultTwist2[i]*etildelow;
@@ -938,10 +1020,12 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
         double ebarl,ebarh,HTl,HTh;
         ebarl = ebarh=HTl = HTh = 0.0;
         //build GPDs ala K(3) = 1/sqrt(2) (e_u*K^u-e_d*K^d) -- eq (14) from Kroll note
-        ebarh = ETBarReFac* 1./sqrt(2.0)*(charge_u*EBarU(xHigh[i],_xi,_t,_qsq,ebu)-charge_d*EBarD(xHigh[i],_xi,_t,_qsq,ebd));
-        ebarl = ETBarReFac* 1./sqrt(2.0)*(charge_u*EBarU(xLow[i],_xi,_t,_qsq,ebu)-charge_d*EBarD(xLow[i],_xi,_t,_qsq,ebd));
-        HTh =  HTValenzReFac* 1./sqrt(2.0)*(charge_u*HTValence(xHigh[i],_xi,_t,_qsq,hbu,1)-charge_d*HTValence(xHigh[i],_xi,_t,_qsq,hbd,2));
-        HTl =  HTValenzReFac* 1./sqrt(2.0)*(charge_u*HTValence(xLow[i],_xi,_t,_qsq,hbu,1)-charge_d*HTValence(xLow[i],_xi,_t,_qsq,hbd,2));
+
+        ebarh = ETBarReFac* _mix_angle*(charge1*EBarU(xHigh[i],_xi,_t,_qsq,ebu)-_sign*charge2*EBarD(xHigh[i],_xi,_t,_qsq,ebd));
+        ebarl = ETBarReFac* _mix_angle*(charge1*EBarU(xLow[i],_xi,_t,_qsq,ebu) -_sign*charge2*EBarD(xLow[i],_xi,_t,_qsq,ebd));
+        HTh =  HTValenzReFac* _mix_angle*(charge1*HTValence(xHigh[i],_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(xHigh[i],_xi,_t,_qsq,hbd,2));
+        HTl =  HTValenzReFac* _mix_angle*(charge1*HTValence(xLow[i],_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(xLow[i],_xi,_t,_qsq,hbd,2));
+
         //integrate the convolutions
         Eint0l=Eint0l+weights[i]*xLowResult[i]*ebarl;
         Eint0h=Eint0h+weights[i]*xHighResult[i]*ebarh;
@@ -983,8 +1067,8 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
         result.M0mp = 0;
     else
         result.M0mp = e0 / sqrt(_qsq)*sqrt(-tprime)/2./m*_xi*Etconv;
-    
-    
+
+
     //std::cout << "Htconv " << Htconv << " Etconv " << Etconv << std::endl;
 
     //twist 3 finalization
@@ -1006,8 +1090,14 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     //correction factors that should go in the GPD ETbar
     //but we put them here -- notice: remember this factor when calculating
     //GPD parameters!!! TODO
-    result.Mppp0 *= (1./sqrt(2));
-    result.Mpmp0 *= (1./sqrt(2));
+
+    //vpk
+    //result.Mppp0 *= (1./sqrt(2));
+    //result.Mpmp0 *= (1./sqrt(2));
+    result.Mppp0 *= 1.;
+    result.Mpmp0 *= 1.;
+
+
 
 
     result.qsq = _qsq;
@@ -1016,6 +1106,50 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     result.t = _t;
     return result;
 }
+
+//vpk
+void SetReactionPar(int iflag){
+    if (iflag==1) {
+// g*+p-->pi0+p
+      f_pi=0.132;
+      _mix_angle=1.0/sqrt(2.0);
+      _sign=1.0;
+      charge1=2.0/3.0;
+      charge2=-1.0/3.0;
+    } else if (iflag==2){
+// g*+p-->eta+p
+      f_pi=0.132*1.26;
+      _mix_angle=1.158/sqrt(6.0);
+      _sign=-1.0;
+      charge1=2.0/3.0;
+      charge2=-1.0/3.0;
+    } else if(iflag==3){
+// g*+n-->pi0+p
+      f_pi=0.132;
+      _mix_angle=1.0/sqrt(2.0);
+      _sign=1.0;
+      charge1=-1.0/3.0;
+      charge2=2.0/3.0;
+    } else if (iflag==4){
+// g*+n-->eta+p
+      f_pi=0.132*1.26;
+      _mix_angle=1.158/sqrt(6.0);
+      _sign=-1.0;
+      charge1=-1.0/3.0;
+      charge2=2.0/3.0;
+    }
+}
+
+
+void PrintReactionParms(){
+  cout<<"f_pi            "<<dec<<  f_pi        <<endl;
+  cout<<"_mix_angle      "<<dec<<  _mix_angle  <<endl;
+  cout<<"_sign           "<<dec<<  _sign       <<endl;
+  cout<<"charge2         "<<dec<<  charge1     <<endl;
+  cout<<"charge2         "<<dec<<  charge2     <<endl;
+}
+
+
 double getCX(amplitude& _myAmp, double _W) {
     double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/2.;
     double Mabs = (pow(TComplex::Abs(_myAmp.Mmmp0),2.0) + pow(TComplex::Abs(_myAmp.Mmpp0),2.0) + pow(TComplex::Abs(_myAmp.Mpmp0),2.0) + pow(TComplex::Abs(_myAmp.Mppp0),2.0));
