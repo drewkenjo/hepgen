@@ -88,7 +88,8 @@ if __name__ == "__main__":
     try:
       flag = reactions.index(sys.argv[1]) + 1
     except:
-      print('no reaction specified')
+      print('######################################')
+      print('----- No reaction specified')
       print('USAGE: '+sys.argv[0]+' [Ppi0 | Peta | Npi0 | Neta]')
       sys.exit(-1)
 
