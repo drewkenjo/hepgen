@@ -1,0 +1,63 @@
+The following will guide through the installation of hepgen++. The GK code is
+included in this package. Further infos about hepgen++ can be found in the thesis
+of Christopher Regali (https://freidok.uni-freiburg.de/data/11449).
+(One should also point out, that the GK code is not used when generating exclusive pi0 MC events
+using the 'ordinary' hepgen++ MC generator functionality, i.e. './HEPGen++ hepgen_pi0.data 42', see README inside
+hepgen++. For this, pre-generated cross-section tables are used that are based on EPJA47(2011)112).
+
+In the following, I will only care about the usage of the GK code.
+For this, I will show how to use the python bindings to the GK code. (One could also work
+within C++, but I find that too cumbersome... The general procedure would be the same, though.)
+
+Commands that are to be executed in a terminal are preceded with a '>'.
+
+
+0. I expect a linux system that has cmake, python3, SWIG and ROOT installed, and the $ROOTSYS environment
+variable is set appropriately.
+
+
+1. Fetch and unpack the HEPGenPlusPlus tar file. It includes the GK code with the most current parameters (as of June/2018).
+So far, the paramaters are only provided by Peter Kroll in private communications with Christopher and me (to my knowledege).
+A summary of the parameters can be found in my thesis (https://freidok.uni-freiburg.de/data/15945), table 6.29
+> tar -xvzpf ~/Downloads/HEPGenPlusPlus-1.2-RC1.tar.gz
+> export HEPGENDIR=$PWD/HEPGenPlusPlus-1.2-RC1
+From here on, $HEPGENDIR references the cloned directory. (Side note: The actual code for the GK model
+is located in $HEPGENDIR/libGKPi0/, specifically in the file libGKPi0.cpp.)
+
+
+2. Quick install guide, see also the README located in $HEPGENDIR. Will build with ROOT support
+and with python bindings. The installation directory will be '$HEPGENDIR/install'.
+> cd $HEPGENDIR
+> mkdir build
+> cd build
+> cmake ../ -DCMAKE_INSTALL_PREFIX=../install -DHEPGEN_ENABLE_PYTHON=YES -DCMAKE_BUILD_TYPE=Release -DUSE_EXPERIMENTAL=YES
+At this point, cmake will complain if some dependencies are not found. If everything went fine,
+the last line in the output should read s.t. like '-- Build files have been written to: ....'
+
+Now, build and install:
+> make -j5
+> sudo make install
+
+
+3. Set the environment variables (e.g. in ~/.bashrc)
+> export HEPGEN=$HEPGENDIR/install
+> export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HEPGEN/lib
+
+Check if the python binding works by entering the python console and loading the hepgen module
+> python
+>>> import lhepgen
+>>> lhepgen
+This command should print s.t. like '<module 'lhepgen' from '/usr/lib64/python3.5/site-packages/lhepgen.py'>'.
+(Use Ctrl+D to exit the python console.)
+
+
+4. Now, you're ready to actually calculate s.t. ;) Use the attached python snippet to understand how 
+this works, I hope the comments in the code are enough... Execute the snippet with
+> python example.py
+
+The returned value is the virtual photon proton xsec for exclusive pi0 production at
+    Q^2=2.3, x_Bj=0.37, t=-0.256, E_in=5.75
+and should read 294.266543239
+
+
+

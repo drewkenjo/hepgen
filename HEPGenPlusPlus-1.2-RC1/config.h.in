@@ -1,0 +1,5 @@
+#cmakedefine USE_ROOT
+#cmakedefine USE_EXPERIMENTAL
+#cmakedefine USE_CXX11
+#cmakedefine USE_CXX0X
+

@@ -1,0 +1,208 @@
+                                                                                                    
+   ▄█    █▄       ▄████████    ▄███████▄    ▄██████▄     ▄████████ ███▄▄▄▄                          
+  ███    ███     ███    ███   ███    ███   ███    ███   ███    ███ ███▀▀▀██▄                        
+  ███    ███     ███    █▀    ███    ███   ███    █▀    ███    █▀  ███   ███     █▄        █▄       
+ ▄███▄▄▄▄███▄▄  ▄███▄▄▄       ███    ███  ▄███         ▄███▄▄▄     ███   ███  ▄▄████▄▄  ▄▄████▄▄    
+▀▀███▀▀▀▀███▀  ▀▀███▀▀▀     ▀█████████▀  ▀▀███ ████▄  ▀▀███▀▀▀     ███   ███  ▀▀████▀▀  ▀▀████▀▀    
+  ███    ███     ███    █▄    ███          ███    ███   ███    █▄  ███   ███     ▀█        ▀█       
+  ███    ███     ███    ███   ███          ███    ███   ███    ███ ███   ███                        
+  ███    █▀      ██████████  ▄████▀        ████████▀    ██████████  ▀█   █▀                         
+ 
+
+ 
+ 
+-----------------------------------------------------------------------------------------
+##### HOMEPAGE
+-----------------------------------------------------------------------------------------
+Please always check our website for the latest information about HEPGen++
+
+https://na58-project-tgeant.web.cern.ch/content/hepgen
+
+
+
+-----------------------------------------------------------------------------------------
+##### INSTALLATION
+-----------------------------------------------------------------------------------------
+
+Installation is straight-forward cmake-guided.
+You will need at least a working GCC and cmake > 2.6
+
+
+To install HEPGen++ do the following:
+
+#if you want to use root, set ROOTSYS
+export ROOTSYS=`root-config --prefix`
+#do this anyway
+cd HEPGen++
+mkdir build 
+mkdir install 
+cd build 
+cmake ../ -DCMAKE_INSTALL_PREFIX=../install -DCMAKE_BUILD_TYPE=Release
+make && make install
+
+
+This will detect automatically if you are having ROOT installed and ready. 
+If so it will enable ROOT-histograms in addition to the ASCII-Histograms 
+that you will be getting anyway.
+
+
+-----------------------------------------------------------------------------------------
+##### ADDITIONAL CMAKE FLAGS
+-----------------------------------------------------------------------------------------
+  -DHEPGEN_DISABLE_ROOT=YES	 disables ROOT support even if it was found
+  -DHEPGEN_EVDISGL=YES 		 enables the build of the hepgen opengl event display evDis
+			         needs Qt4 and OpenGl
+
+-----------------------------------------------------------------------------------------
+##### USAGE
+-----------------------------------------------------------------------------------------
+
+make sure you add the lib-folder to your LD_LIBRARY_PATH:
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/PATH/TO/HEPGEN_INSTALL/lib
+
+
+Then use hepgen as a normal command-line-like utility:
+HEPGen++ [PATH_TO_CONFIG] [SEED_TO_USE]
+e.g.
+./HEPGen++ hepgen_dvcs.data 42 
+
+
+If you have installed NCurses (and not ROOT6 as of yet, see: https://root.cern.ch/phpBB3/viewtopic.php?f=3&t=20705)
+you can also use:
+./HEPGenCurses++ hepgen_dvcs.data 42
+Note that this is still a bit experimental
+
+To get the full help:
+./HEPGen++ -h
+
+This will generate the output-files in lepto-format like:
+HEPGen++-outfile-YYYY-MM-DD.HH:MM:SS-[SEED]_binary.bin
+And histogram-files:
+For ASCII:
+HEPGen++-histograms-YYYY-MM-DD.HH:MM:SS-[SEED].dat
+For ROOT:
+HEPGen++-histograms-YYYY-MM-DD.HH:MM:SS-[SEED].root
+
+You can set the OUTFILE parameter in the datacard to override this feature.
+If you set this parameter, you get a predictable file-name for batch-production
+
+
+
+-----------------------------------------------------------------------------------------
+##### HELP
+-----------------------------------------------------------------------------------------
+This is a C++-Port of the original-HEPGen software developed by
+Andrzej Sandacz in Fortran. 
+
+If you encounter any bugs or serious installation issues feel free to contact
+me at christopher.regali@cern.ch or the whole TGEANT@cern.ch list.
+
+
+-----------------------------------------------------------------------------------------
+##### CHANGELOG
+-----------------------------------------------------------------------------------------
+
+1.0-RC3-04 12.4.2016
+  * Added libGKPi0 and cache-table with full twist-3 transv. implementation of the GK Model for Pi0 production
+  * Cleaned up the resources 
+
+
+1.0-RC2-03 21.1.2016
+  * Fixed several problems with incorrectly set parameters in the config files
+  * Added the possibility to enable / disable histograms
+  * Fixed weight adding in the phi generator
+
+1.0-RC1-02 24.11.2015
+  * Added LST(24) = 1 if event was DD, 0 if event was 'elastic'
+  * Added weightCounting only if event was not a DD event
+
+
+1.0-RC1-01 18.11.2015
+  * Added lumiCalc cross section integration tool - needs ROOT
+  * Fixed cross sections of Rho0,Phi,Omega that were wrong with a factor of 25
+  * Updated documentation
+  * Added a ncurses based executable (buggy with ROOT6!)
+  * Added a cout for sum of weights for all  generators
+
+
+0.9-RC3-03 14.7.2015
+  * Changed format for data tables for pi0 and rho+
+    - New tables are self-sustained and need no hardcoded dimensions
+    - New names are *_ng.dat for this format
+
+0.9-RC3-02 12.7.2015
+  * Added pixel/vertex shading to OpenGL event display
+  * Added -leptofile option to OpenGL event display
+
+0.9-RC3-01 7.7.2015
+  * Fixed some angular problems with the H. Moutarde Code and doubled conversionfactor application (Thanks A. Vidon)
+  * Added an OpenGl event display that can be activated with -DHEPGEN_EVDISGL=YES (needs Qt4 and OpenGl)
+
+0.9-RC2-01 30.6.2015
+  * Fixed the phase factors for the Q^2 generation
+    * Note: This broke binary compatibility with hepgen!
+  * Added PAM-BH generator (Thanks A. Vidon)
+  * Fixed a small bug in the lepto reader library regarding the header-length checks
+
+0.8-RC1-01 27.5.2015
+  * Fixed  a beamfile problem (thanks A. Ferrero)
+  * Added omega and rho+ generator
+  * Added pi0 transversity cx table
+  * Fixed a small bug in the computation of S (thanks P. Joerg)
+  * Added VGG-DVCS generator ala L. Mosse (needs ROOT installed)
+  * Added generalized functions for CX computation from phast "HEPGen++ in PHAST"
+
+0.7-RC3-04 24.6.2014
+  * Fixed a bug in dd that some protons still got the wrong status code
+
+0.7-RC3-03 14.6.2014
+  * Fixed a bug that some protons, when dd is enabled but does not happen, get the wrong statuscode
+  * Fixed a bug that the dvcs-generator would not run on some compilers due to undefined return code
+  
+0.7-RC3-02 14.3.2014
+  * Fixed another CMakeLists.txt bug for SLC6
+
+0.7-RC3-01 11.3.2014
+  * Changed the name completely to HEPGen++
+  * Replaced the findROOT.cmake with a version that works on SLC5
+  * Fixed the nasty CMP-12 bug in the CMakeLists that annoyed the SLC5-Users
+
+0.7-RC2-02 10.3.2014
+  * Fixed a small Rollover-Flaw in which one element from the beamfile was not read
+
+0.7-RC2-01 7.3.2014
+  * Added ASCII-2d-Histogramming for those that dont want to use root
+  * Fixed a generation-flaw in charged-particles of DD. Should look good now
+
+0.7-RC1-01 5.3.2014
+  * Added an outfile-option in the datacard for generating reliable file-names to be used in scripts afterwards
+  * Added diffractive dissociation (DD) - still in testing stage
+
+0.6-RC1-01 25.2.2014
+  * Added a simple Phi->K K generator. The weights are approximated after the same paper, where the rho->pi pi approximation came from
+  * Thanks to Arne Gross for his contribution here
+
+0.5-RC1-01 7.10.2013:
+  * Fixed a big bug in 0.4 that killed the events when beamfile was NOT loaded. Now loading and not-loading should work in all generators
+  * Added a major part of doxygen-documentation
+  
+0.4-RC1-01 7.10.2013:
+  * Made all features available via data-cards, not so many cmd-line-features to be used by now
+  * Added the functionality for isoscalar targets - still not enabled by default datacards though
+
+0.3-RC1-02 1.10.2013:
+  * Fixed Rollover-Bug
+  * Added feature for auto-detection of headerlength in beamfiles
+  
+0.3-RC1-01 1.10.2013:
+  * Added BeamFile-Support for reading-in beamfiles
+  * Started implementing DD - still neither finished nor functional
+
+
+0.2-RC1-03 8.4.2013:
+  * Fixed a nasty bug that occured when events were generated with a bad mandelstam-t. those were not regenerated correctly and left about 4% of the events unusable!
+
+
+0.2-RC1-02 3.4.2013:
+  * Added a GFortran compatibility mode for the lepto output format where the headers are put in 64-bit length. One can toggle it by using the gfortran flag as described above
+
