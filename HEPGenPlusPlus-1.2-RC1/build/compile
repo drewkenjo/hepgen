@@ -1,0 +1,4 @@
+source env.csh
+cmake ../ -DCMAKE_INSTALL_PREFIX=../install -DHEPGEN_ENABLE_PYTHON=YES -DCMAKE_BUILD_TYPE=Release -DUSE_EXPERIMENTAL=YES
+make -j5
+make install
