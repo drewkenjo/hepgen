@@ -5,8 +5,8 @@ import lhepgen
 
 # Get the xsec for some specific kinematic point.
 # While Qsq is mandatory, you can choose between nu/W/xbj and t/t'.
-def get_xsec(Qsq, nu=None, W=None, xbj=None, t=None, tprim=None, phi=0.0, Ein=5.75, table=None):
-    print(sys.argv)
+def get_xsec(reactionFlag, Qsq, nu=None, W=None, xbj=None, t=None, tprim=None, phi=0.0, Ein=5.75, table=None):
+    lhepgen.SetReactionPar(reactionFlag)
     m_P = 0.93827203
 
     # Create an instance of 'hWeightInterface'. It is used to define the kinematics  used in the calculation.
@@ -83,6 +83,15 @@ def get_xsec(Qsq, nu=None, W=None, xbj=None, t=None, tprim=None, phi=0.0, Ein=5.
 #================================================================================================#
 
 if __name__ == "__main__":
+    # Choose reaction
+    reactions = ['Ppi0', 'Peta', 'Npi0', 'Neta']
+    try:
+      flag = reactions.index(sys.argv[1]) + 1
+    except:
+      print('no reaction specified')
+      print('USAGE: '+sys.argv[0]+' [Ppi0 | Peta | Npi0 | Neta]')
+      sys.exit(-1)
+
     # hepgen++ provides a grid of pre-calculated subprocess amplitudes. Using them
     # speeds up the calculations alot, however at the expense of some accuracy.
 
@@ -122,7 +131,7 @@ if __name__ == "__main__":
 #        pi0/eta out of proton
     tlist= (0.12,0.17,0.25,0.35,0.49,0.78,1.22)
     for tl in tlist:
-       get_xsec(Qsq=2.21, xbj=0.275, t=-tl, Ein=5.75, table=subpoc_table) 
+       get_xsec(flag, Qsq=2.21, xbj=0.275, t=-tl, Ein=5.75, table=subpoc_table) 
 
 
 
