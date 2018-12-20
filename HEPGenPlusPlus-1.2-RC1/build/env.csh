@@ -1,5 +1,3 @@
-set SCRIPTDIR=`dirname $0`
-
 use root
 
 setenv CVS_RSH ssh
@@ -16,7 +14,7 @@ setenv PATH ${PATH}::$COATJAVA/bin
 source /site/12gev_phys/softenv.csh 2.2
 
 #----  hepgen
-setenv HEPGENDIR       $SCRIPTDIR/..
+setenv HEPGENDIR       $PWD/..
 setenv HEPGEN          ${HEPGENDIR}/install
 setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${HEPGEN}/lib
 setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/usr/lib64
