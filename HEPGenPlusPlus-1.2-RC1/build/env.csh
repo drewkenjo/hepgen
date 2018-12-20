@@ -1,4 +1,4 @@
-set SCRIPTDIR `dirname $0`
+set SCRIPTDIR=`dirname $0`
 
 use root
 
