@@ -14,7 +14,7 @@ setenv PATH ${PATH}::$COATJAVA/bin
 source /site/12gev_phys/softenv.csh 2.2
 
 #----  hepgen
-setenv HEPGENDIR       /volatile/clas12/kenjo/hepgen/HEPGenPlusPlus-1.2-RC1
+setenv HEPGENDIR       $PWD
 setenv HEPGEN          ${HEPGENDIR}/install
 setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${HEPGEN}/lib
 setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/usr/lib64
