@@ -18,14 +18,14 @@ for qsq_val in numpy.linspace(qsq_start, qsq_end, qsq_bins, endpoint=False):
   for w_val in numpy.linspace(w_start, w_end, w_bins, endpoint=False):
     #os.system("~/batchJobGentoo.sh /sc/userdata/regali/slcBatchHepGen/hepgen_EXP/install/bin/gkCrossSection "+str(qsq_val)+" "+str(w_val)+" -0.1 0 -a")
     #print("gkCrossSection {:.3f} {:.3f} -0.1 0 -a".format(qsq_val, w_val))
-    print("{:.3f} {:.3f}".format(qsq_val, w_val))
+    print("{:.4f} {:.4f}".format(qsq_val, w_val))
 
 #create the cache folder index
 
 for qsq_val in numpy.linspace(qsq_start, qsq_end, qsq_bins, endpoint=False):
-  QSQ_LIST = QSQ_LIST+ " {:.3f}".format(qsq_val)
+  QSQ_LIST = QSQ_LIST+ " {:.4f}".format(qsq_val)
 for w_val in numpy.linspace(w_start, w_end, w_bins, endpoint=False):
-  W_LIST = W_LIST+" {:.3f}".format(w_val)
+  W_LIST = W_LIST+" {:.4f}".format(w_val)
 
 
 DATAFOLDER="DATAFOLDER ./output"
