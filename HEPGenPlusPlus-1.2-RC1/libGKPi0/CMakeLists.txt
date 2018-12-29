@@ -25,10 +25,13 @@ target_link_libraries(testGKPi0 GKPi0 ${ROOT_LIBRARIES})
 add_executable(gkCrossSection gkCrossSection.cpp)
 target_link_libraries(gkCrossSection GKPi0 ${ROOT_LIBRARIES})
 
+add_executable(gkCrossSection_eta gkCrossSection_eta.cpp)
+target_link_libraries(gkCrossSection_eta GKPi0 ${ROOT_LIBRARIES})
+
 add_executable(tableNator tableNator.cpp)
 
 
 install (TARGETS GKPi0 DESTINATION lib)
-install (TARGETS gkCrossSection DESTINATION bin)
+install (TARGETS gkCrossSection_eta gkCrossSection DESTINATION bin)
 install (FILES ${gkpi0list} DESTINATION include)
 # install (FILES ${gkpi0listData} DESTINATION share/gkpi0data)
