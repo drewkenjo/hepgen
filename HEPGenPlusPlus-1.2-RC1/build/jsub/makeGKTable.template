@@ -12,3 +12,6 @@ OTHER_FILES:
 /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/build/jsub/makeTable
 /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/build/jsub/gkCrossSection
 
+INPUT_DATA: input
+
+INPUT_FILES:
