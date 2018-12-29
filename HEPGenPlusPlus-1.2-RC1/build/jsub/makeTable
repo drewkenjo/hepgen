@@ -2,7 +2,7 @@
 
 source sub.csh
 foreach line ( "`cat input`" )
-  ./gkCrossSection $line -0.1 0 -a
+  ./gkCrossSection_eta $line -0.1 0 -a
   cp $HEPGEN_CREATESPA/preparation* /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/test/
   rm -f $HEPGEN_CREATESPA/preparation*
 end

@@ -3,14 +3,14 @@ OS:		centos7
 PROJECT: clas12
 TRACK:   analysis
 COMMAND: ./makeTable
-MEMORY:  800 MB
+MEMORY:  900 MB
 CPU: 1
 TIME: 100
 
 OTHER_FILES:
 /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/build/jsub/sub.csh
 /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/build/jsub/makeTable
-/work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/build/jsub/gkCrossSection
+/work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/build/jsub/gkCrossSection_eta
 
 INPUT_DATA: input
 
