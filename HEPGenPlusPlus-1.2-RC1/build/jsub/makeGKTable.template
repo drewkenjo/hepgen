@@ -5,7 +5,7 @@ TRACK:   analysis
 COMMAND: ./makeTable
 MEMORY:  800 MB
 CPU: 1
-TIME: 70
+TIME: 80
 
 OTHER_FILES:
 /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/build/jsub/sub.csh
