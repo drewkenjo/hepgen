@@ -2,7 +2,7 @@ JOBNAME: makeGKtable
 OS:		centos7
 PROJECT: clas12
 TRACK:   analysis
-COMMAND: ./makeTable XXXXX
+COMMAND: ./makeTable
 MEMORY:  800 MB
 CPU: 1
 TIME: 30

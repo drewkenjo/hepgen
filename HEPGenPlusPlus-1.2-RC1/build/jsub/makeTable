@@ -1,6 +1,9 @@
 #!/usr/bin/tcsh
 
 source sub.csh
-./gkCrossSection $1 $2 -0.1 0 -a
+foreach line ( "`cat input`" )
+  ./gkCrossSection $line -0.1 0 -a
+  cp $HEPGEN_CREATESPA/preparation* /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/test/
+  rm -f $HEPGEN_CREATESPA/preparation*
+end
 
-cp $HEPGEN_CREATESPA/preparation* /work/clas/claseg1dvcs/andrey/hepgen/HEPGenPlusPlus-1.2-RC1/test/
