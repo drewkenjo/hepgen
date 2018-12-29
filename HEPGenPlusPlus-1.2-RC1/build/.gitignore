@@ -1,5 +1,6 @@
-*
+/*
 !.gitignore
 !env.csh
 !getxsec.py
 !compile
+!/jsub/
