@@ -28,6 +28,9 @@ target_link_libraries(gkCrossSection GKPi0 ${ROOT_LIBRARIES})
 add_executable(gkCrossSection_eta gkCrossSection_eta.cpp)
 target_link_libraries(gkCrossSection_eta GKPi0 ${ROOT_LIBRARIES})
 
+add_executable(gkXSbatch gkXSbatch.cpp)
+target_link_libraries(gkXSbatch GKPi0 ${ROOT_LIBRARIES})
+
 add_executable(tableNator tableNator.cpp)
 
 
