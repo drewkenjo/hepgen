@@ -7,8 +7,8 @@ qsq_end = 12.0
 qsq_bins = 110
 
 w_start = 1.0
-w_end = 4.0
-w_bins = 150
+w_end = 4.3
+w_bins = 165
 
 QSQ_LIST="QSQ "
 W_LIST="W "
