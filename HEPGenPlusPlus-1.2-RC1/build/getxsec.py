@@ -28,18 +28,18 @@ def get_xsec(reactionFlag, Qsq, nu=None, W=None, xbj=None, t=None, tprim=None, p
         w.xbj = lhepgen.getXbj(Qsq,W)
         w.nu = w.qsq/(2.*m_P*w.xbj)
         if w.xbj<0 or w.xbj>1. or W<m_P or w.nu<0. or w.nu>Ein:
-          return 0.0 
+          return 0.0
     else:
         w.xbj = xbj
         W = lhepgen.getWsq(Qsq,w.xbj) # actually returns sqrt(wsq) !!
         w.w2 = W**2
         w.nu = w.qsq/(2.*m_P*w.xbj)
         if w.xbj<0 or w.xbj>1. or W<m_P or w.nu<0. or w.nu>Ein:
-          return 0.0 
+          return 0.0
 
     w.y = w.nu/Ein
     if w.y<0.0 or w.y>1.0:
-       return 0.0    
+       return 0.0
 
     # Calculate xi and t0
     xi = lhepgen.compassxi(w.xbj)
@@ -74,9 +74,9 @@ def get_xsec(reactionFlag, Qsq, nu=None, W=None, xbj=None, t=None, tprim=None, p
         valsigTT = lhepgen.getCXTT(myAmps, W, phi)
         valsigLT = lhepgen.getCXLT(myAmps, W, phi)
 #    sig=valsig + valsigL*epsilon + epsilon*valsigTT + math.sqrt(2*epsilon*(1+epsilon))*valsigLT
-    sig=valsig + valsigL*epsilon 
+    sig=valsig + valsigL*epsilon
 
-    print ("{0:3.2f} {1:5.3f} {2:5.3f} {3:5.3f} {4:5.3f} {5:5.3f} {6:6.3f} {7:6.3f} {8:8.3f} {9:8.3f} {10:8.3f} {11:8.3f} {12:8.3f} {13:8.3f}".format(Ein, W, w.xbj, w.qsq, -t, -t0, -w.tprim, xi, phi, valsig, valsigL, valsigTT, valsigLT, sig))  
+    print ("{0:3.2f} {1:5.3f} {2:5.3f} {3:5.3f} {4:5.3f} {5:5.3f} {6:6.3f} {7:6.3f} {8:8.3f} {9:8.3f} {10:8.3f} {11:8.3f} {12:8.3f} {13:8.3f}".format(Ein, W, w.xbj, w.qsq, -t, -t0, -w.tprim, xi, phi, valsig, valsigL, valsigTT, valsigLT, sig))
 
     return sig
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
 #    tlist= (0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.5,2.)
 
 
-    print ("{0:5} {1:3} {2:6} {3:6} {4:6} {5:4} {6:6} {7:4} {8:5} {9:5} {10:7} {11:7} {12:7} {13:7}".format(    " Ein", " W ","   xB","  Q2", "  -t", "-t0", "-tprim","  xi ","     phi", "  sigT", "     sigL", "    sigTT  ", " sigLT  ", "sig"))  
+    print ("{0:5} {1:3} {2:6} {3:6} {4:6} {5:4} {6:6} {7:4} {8:5} {9:5} {10:7} {11:7} {12:7} {13:7}".format(    " Ein", " W ","   xB","  Q2", "  -t", "-t0", "-tprim","  xi ","     phi", "  sigT", "     sigL", "    sigTT  ", " sigLT  ", "sig"))
 
 #    for Q2 in Q2list:
 #       for xB in xBlist:
@@ -132,12 +132,13 @@ if __name__ == "__main__":
 #        pi0/eta out of proton
     tlist= (0.12,0.17,0.25,0.35,0.49,0.78,1.22)
     for tl in tlist:
-       get_xsec(flag, Qsq=2.21, xbj=0.275, t=-tl, Ein=5.75, table=subpoc_table) 
+       get_xsec(flag, Qsq=2.21, xbj=0.275, t=-tl, Ein=5.75, table=subpoc_table)
+       #get_xsec(flag, Qsq=float(sys.argv[2]), W=float(sys.argv[3]), t=-tl, Ein=11.75, table=subpoc_table)
 
 
 
 
-#-------  pi0 out of neutron 
+#-------  pi0 out of neutron
 #    tlist= (0.02,0.07,0.12,0.17) # this is t0-t
 #    m_P = 0.93827203
 #    xbj=0.360
@@ -145,6 +146,6 @@ if __name__ == "__main__":
 #    t0 = -4.*(m_P**2)*(xi**2)/(1.-(xi**2))
 #--------
 #    for tl in tlist:
-#-#       get_xsec(Qsq=2.21, xbj=0.275, t=-tl, Ein=5.75, table=subpoc_table) 
-#       get_xsec(Qsq=1.75, xbj=0.360, t=t0-tl, Ein=5.75, table=subpoc_table) 
-         
+#-#       get_xsec(Qsq=2.21, xbj=0.275, t=-tl, Ein=5.75, table=subpoc_table)
+#       get_xsec(Qsq=1.75, xbj=0.360, t=t0-tl, Ein=5.75, table=subpoc_table)
+
