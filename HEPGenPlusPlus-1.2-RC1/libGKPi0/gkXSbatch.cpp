@@ -13,18 +13,23 @@
 #include "gkSubProcessTable.h"
 
 int main (int argc, char** argv) {
-  if (argc != 4) {
-    printf("Usage: %s kinInput -I interpolationCacheIndex\n",argv[0]);
+  if (argc != 5) {
+    printf("Usage: %s [pi0|eta] kinInput -I interpolationCacheIndex\n",argv[0]);
     return -1;
   }
 
-  std::ifstream ff(argv[1]);
+  if(strcmp(argv[1], "eta")==0) {
+    std::cout<<"eta channel!!!!!"<<std::endl;
+    GKPI0::SetReactionPar(2);
+  }
 
   gkSubProcessTableCache myCache;
   myCache.loadCache(argv[argc-1]);
 
   double m=0.93827203;
   double xbj,qsq,w2,t,phi;
+
+  std::ifstream ff(argv[2]);
 
   while(ff.good()) {
     ff>>qsq>>w2>>t>>phi;
