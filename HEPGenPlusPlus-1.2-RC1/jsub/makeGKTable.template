@@ -1,5 +1,5 @@
 JOBNAME: makeGKtable
-OS:		centos7
+OS:      centos7
 PROJECT: clas12
 TRACK:   analysis
 COMMAND: tar -zxvf sub.tgz && ./makeTable
