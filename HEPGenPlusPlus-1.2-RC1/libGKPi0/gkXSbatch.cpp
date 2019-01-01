@@ -18,10 +18,8 @@ int main (int argc, char** argv) {
     return -1;
   }
 
-  if(strcmp(argv[1], "eta")==0) {
-    std::cout<<"eta channel!!!!!"<<std::endl;
+  if(strcmp(argv[1], "eta")==0)
     GKPI0::SetReactionPar(2);
-  }
 
   gkSubProcessTableCache myCache;
   myCache.loadCache(argv[argc-1]);
