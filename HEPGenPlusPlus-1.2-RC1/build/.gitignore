@@ -2,4 +2,5 @@
 !.gitignore
 !env.csh
 !getxsec.py
+!genBin.py
 !compile

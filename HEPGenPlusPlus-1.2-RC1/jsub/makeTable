@@ -1,9 +1,0 @@
-#!/usr/bin/tcsh
-
-source sub.csh
-foreach line ( "`cat input`" )
-  ./gkCrossSection $line -0.1 0 -a
-  cp $HEPGEN_CREATESPA/preparation* /volatile/clas12/kenjo/hepgen/HEPGenPlusPlus-1.2-RC1/test/
-  rm -f $HEPGEN_CREATESPA/preparation*
-end
-
