@@ -45,7 +45,7 @@ int main (int argc, char** argv) {
       double sigmaL = GKPI0::getCXL(myAmp,w2);
       double sigmaLT = GKPI0::getCXLT(myAmp,w2,phi);
 
-      printf("Final: %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,sigma,sigmaL,sigmaTT,sigmaLT);
+      printf("%.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,sigma,sigmaL,sigmaTT,sigmaLT);
     }
   }
 
