@@ -59,6 +59,18 @@ typedef struct {
 /*! \brief xi skewness calculation in approximation for compass kinematic */
 inline double compassxi(double _xbj){return _xbj/(2.-_xbj);}
 
+void SetETbarUCoefs(double c1, double c2, double c3);
+void SetETbarDCoefs(double c1, double c2, double c3, double c4, double c5);
+
+void SetETbarUtSlope(double bu);
+void SetETbarDtSlope(double bd);
+void SetETbarUNorm(double nu);
+void SetETbarDNorm(double nd);
+void SetAlpha0U(double _alpha);
+void SetAlphaStrU(double _alpha);
+void SetAlpha0D(double _alpha);
+void SetAlphaStrD(double _alpha);
+
 /*! \brief GPD Ebar for d-quarks */
 double EBarD ( double xb, double xi, double t, double Qsq, double bd );
 

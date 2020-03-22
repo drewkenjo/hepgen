@@ -9,6 +9,61 @@ using std::endl;
 
 namespace GKPI0 {
 
+  double etbuc1 = 1, etbuc2 = 0, etbuc3 = -1;
+  double etbdc1 = 1, etbdc2 = 0, etbdc3 = -2, etbdc4 = 0, etbdc5 = 1;
+  double etbu = 0.5, etNu = 4.83;
+  double etbd = 0.5, etNd = 3.57;
+//  double alphastr = 0.45;
+//  double delta = 0.3;
+  double alphastrU = 0.45, alphastrD = 0.45;
+  double deltaU = 0.3, deltaD = 0.3;
+
+  void SetAlpha0U(double _alpha) {
+    deltaU = _alpha;
+  }
+
+  void SetAlphaStrU(double _alpha) {
+    alphastrU = _alpha;
+  }
+
+  void SetAlpha0D(double _alpha) {
+    deltaD = _alpha;
+  }
+
+  void SetAlphaStrD(double _alpha) {
+    alphastrD = _alpha;
+  }
+
+  void SetETbarUtSlope(double bu) {
+    etbu = bu;
+  }
+
+  void SetETbarDtSlope(double bd) {
+    etbd = bd;
+  }
+
+  void SetETbarUNorm(double nu) {
+    etNu = nu;
+  }
+
+  void SetETbarDNorm(double nd) {
+    etNd = nd;
+  }
+
+  void SetETbarUCoefs(double c1, double c2, double c3) {
+    etbuc1 = c1;
+    etbuc2 = c2;
+    etbuc3 = c3;
+  }
+
+  void SetETbarDCoefs(double c1, double c2, double c3, double c4, double c5) {
+    etbdc1 = c1;
+    etbdc2 = c2;
+    etbdc3 = c3;
+    etbdc4 = c4;
+    etbdc5 = c5;
+  }
+
 // g* + p--> pi0 + p
   double f_pi=0.132;
   double _mix_angle=1.0/sqrt(2.0);
@@ -98,9 +153,7 @@ double hi ( double i, int flag, double xb, double xi, double t, double Qsq, doub
 
 
 double Q0 = 4.0;
-double alphastr = 0.45;
 double alphas;
-double delta = 0.3;
 
 
 
@@ -122,24 +175,23 @@ std::vector<TComplex> xHighResultTwist2;
 
 double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
 
-    delta=0.3;
     double L = log ( Qsq / Q0 );
     //vpk
     //double nu = 6.83;
     double nu = 4.83;
-    double c[3] = {1.0,
-                   0.0,
-                   -1.0
-                  };
+    double c[3] = {etbuc1, etbuc2, etbuc3};
 
 
     //vpk
-    //    delta=-0.1;
+    // delta=0.3;
+    // delta=-0.1;
 
-    double k = delta + alphastr * t;
+    double k = deltaU + alphastrU * t;
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
+    bu = etbu;
+    nu = etNu;
 
     int hiFlag = -1;
 
@@ -163,14 +215,13 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
 double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
     double L = log ( Qsq / Q0 );
 
-    delta=0.3;
-    double c[5] = {1.0, 0.0, -2.0, 0.0, 1.0};
-
+    double c[5] = {etbdc1, etbdc2, etbdc3, etbdc4, etbdc5};
 
     //0916_newParams
     //vpk
-    //    delta=-0.1;
-    double k = delta + alphastr * t;
+    // delta=0.3;
+    // delta=-0.1;
+    double k = deltaD + alphastrD * t;
 
     //vpk
     //double Nd = 5.05;
@@ -178,6 +229,8 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
+    bd = etbd;
+    Nd = etNd;
 
     int hiFlag = -1;
 
