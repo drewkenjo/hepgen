@@ -11,8 +11,11 @@ namespace GKPI0 {
 
   double etbuc1 = 1, etbuc2 = 0, etbuc3 = -1;
   double etbdc1 = 1, etbdc2 = 0, etbdc3 = -2, etbdc4 = 0, etbdc5 = 1;
-  double etbu = 0.5, etNu = 4.83;
-  double etbd = 0.5, etNd = 3.57;
+  double etbu = 0.5, etbd = 0.5;
+  //double etNu = 4.83, etNd = 3.57;
+  double etNu = 2.0747, etNd = 1.3451;
+
+
 //  double alphastr = 0.45;
 //  double delta = 0.3;
   double alphastrU = 0.45, alphastrD = 0.45;
@@ -178,7 +181,7 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
     double L = log ( Qsq / Q0 );
     //vpk
     //double nu = 6.83;
-    double nu = 4.83;
+    //double nu = 4.83;
     double c[3] = {etbuc1, etbuc2, etbuc3};
 
 
@@ -191,7 +194,7 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
     double xsum = xb + xi;
 
     bu = etbu;
-    nu = etNu;
+    double nu = etNu/(ROOT::Math::tgamma(1-deltaU)*ROOT::Math::tgamma(1+4)/ROOT::Math::tgamma(2-deltaU+4));
 
     int hiFlag = -1;
 
@@ -225,12 +228,12 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
 
     //vpk
     //double Nd = 5.05;
-    double Nd = 3.57;
+    //double Nd = 3.57;
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
     bd = etbd;
-    Nd = etNd;
+    double Nd = etNd/(ROOT::Math::tgamma(1-deltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-deltaD+5));
 
     int hiFlag = -1;
 

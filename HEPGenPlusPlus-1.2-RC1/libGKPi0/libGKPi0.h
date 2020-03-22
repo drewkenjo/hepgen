@@ -22,6 +22,7 @@
 
 #include "TComplex.h"
 #include "TMath.h"
+#include "Math/SpecFuncMathCore.h"
 #include "Math/SpecFuncMathMore.h"
 #include "Math/Functions.h"
 #include "Math/IFunction.h"
