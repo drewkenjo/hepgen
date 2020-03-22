@@ -32,9 +32,6 @@
 #include "Math/Functor.h"
 #include "Math/GaussIntegrator.h"
 
-using std::cout;
-using std::dec;
-using std::endl;
 
 namespace GKPI0 {
 /*! \brief contains amplitudes twist3 */
