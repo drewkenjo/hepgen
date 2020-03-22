@@ -193,7 +193,6 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
-    bu = etbu;
     double nu = etNu/(ROOT::Math::tgamma(1-deltaU)*ROOT::Math::tgamma(1+4)/ROOT::Math::tgamma(2-deltaU+4));
 
     int hiFlag = -1;
@@ -232,7 +231,6 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
-    bd = etbd;
     double Nd = etNd/(ROOT::Math::tgamma(1-deltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-deltaD+5));
 
     int hiFlag = -1;
@@ -992,9 +990,6 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 
 
     //twist3 ht, ebar parameters
-    double ebu=0.5;
-    double ebd=0.5;
-
 
     double hbd=0.3;
     double hbu=0.3;
@@ -1051,7 +1046,7 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     double HTxi,EBarxi;
     //for cauchy principal value we need the poles K(x=xi,xi,t) ! also in the form of the upper GPDs
 
-    EBarxi = ETBarReFac*     _mix_angle*(charge1*EBarU(_xi,_xi,_t,_qsq,ebu)      -_sign*charge2*EBarD(_xi,_xi,_t,_qsq,ebd));
+    EBarxi = ETBarReFac*     _mix_angle*(charge1*EBarU(_xi,_xi,_t,_qsq,etbu)      -_sign*charge2*EBarD(_xi,_xi,_t,_qsq,etbd));
     HTxi   = HTValenzReFac*  _mix_angle*(charge1*HTValence(_xi,_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(_xi,_xi,_t,_qsq,hbd,2));
 
     //printf("EBarxi %.4e, HTValxi %.4e\n",EBarxi,HTxi);
@@ -1077,8 +1072,8 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
         ebarl = ebarh=HTl = HTh = 0.0;
         //build GPDs ala K(3) = 1/sqrt(2) (e_u*K^u-e_d*K^d) -- eq (14) from Kroll note
 
-        ebarh = ETBarReFac* _mix_angle*(charge1*EBarU(xHigh[i],_xi,_t,_qsq,ebu)-_sign*charge2*EBarD(xHigh[i],_xi,_t,_qsq,ebd));
-        ebarl = ETBarReFac* _mix_angle*(charge1*EBarU(xLow[i],_xi,_t,_qsq,ebu) -_sign*charge2*EBarD(xLow[i],_xi,_t,_qsq,ebd));
+        ebarh = ETBarReFac* _mix_angle*(charge1*EBarU(xHigh[i],_xi,_t,_qsq,etbu)-_sign*charge2*EBarD(xHigh[i],_xi,_t,_qsq,etbd));
+        ebarl = ETBarReFac* _mix_angle*(charge1*EBarU(xLow[i],_xi,_t,_qsq,etbu) -_sign*charge2*EBarD(xLow[i],_xi,_t,_qsq,etbd));
         HTh =  HTValenzReFac* _mix_angle*(charge1*HTValence(xHigh[i],_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(xHigh[i],_xi,_t,_qsq,hbd,2));
         HTl =  HTValenzReFac* _mix_angle*(charge1*HTValence(xLow[i],_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(xLow[i],_xi,_t,_qsq,hbd,2));
 
