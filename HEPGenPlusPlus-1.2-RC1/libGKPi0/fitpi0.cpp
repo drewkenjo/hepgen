@@ -89,6 +89,7 @@ int main (int argc, char** argv) {
   myCache[1].loadCache(argv[argc-1]);
 
   for(int ich=0;ich<3;ich++) {
+    GKPI0::SetReactionPar(1+ich);
     std::ifstream ff(argv[ich+1]);
     while(ff.good()) {
       double qnom,xnom,qq,xx,tt,s0,ds0,dds0,slt,dslt,ddslt,stt,dstt,ddstt;
@@ -98,7 +99,6 @@ int main (int argc, char** argv) {
         double w2nom = GKPI0::getWsq(qnom, xnom);
         double w2 = GKPI0::getWsq(qq, xx);
 
-        double eps = GKPI0::getEpsilon(qq,xx,E0);
         double tmin = GKPI0::getTmin(qq,xx);
 
         kinpoint pp = {qnom, xnom, w2nom, qq, xx, w2, -tt, s0, ds0, stt, dstt, slt, dslt};
