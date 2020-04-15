@@ -324,7 +324,7 @@ double c_f = 4./3.;
 //euler-mascheroni-constant
 double gammaE = 0.5772156649;
 //proton mass
-double m=0.93827203;
+//double m=0.93827203;
 
 double suda ( double x, double b, double Q ) {
 //     extern double LQCD;
@@ -964,8 +964,8 @@ void prepareConvolution(double _qsq, double _xi)
 
 double getPhaseSpace(double _wsq, double _qsq)
 {
-    double Lambda = pow(_wsq,4.0) + pow(_qsq,2.0) + pow(m,4.0) + 2. * pow(_wsq,2.0)*_qsq-2.0* pow(_wsq,2.0)*pow(m,2.0) + 2 * _qsq*pow(m,2.0);
-    double kappa = 1./16./M_PI/(pow(_wsq,2.0)-pow(m,2.0))/sqrt(Lambda)*0.3894*1e6;
+    double Lambda = pow(_wsq,4.0) + pow(_qsq,2.0) + pow(m_targ,4.0) + 2. * pow(_wsq,2.0)*_qsq-2.0* pow(_wsq,2.0)*pow(m_targ,2.0) + 2 * _qsq*pow(m_targ,2.0);
+    double kappa = 1./16./M_PI/(pow(_wsq,2.0)-pow(m_targ,2.0))/sqrt(Lambda)*0.3894*1e6;
     return kappa;
 }
 
@@ -1156,7 +1156,7 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     if (fabs(tprime) < 1e-5)
         result.M0mp = 0;
     else
-        result.M0mp = e0 / sqrt(_qsq)*sqrt(-tprime)/2./m*_xi*Etconv;
+        result.M0mp = e0 / sqrt(_qsq)*sqrt(-tprime)/2./m_targ*_xi*Etconv;
 
 
     //std::cout << "Htconv " << Htconv << " Etconv " << Etconv << std::endl;
@@ -1170,7 +1170,7 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     if (tprime==0 )
         result.Mppp0=0.0;
     else
-        result.Mppp0=-(TComplex::Sqrt(TComplex(-tprime,0.0))/4./m*e0*(2*_xi*Eint0l + (1-_xi)*Eint0h
+        result.Mppp0=-(TComplex::Sqrt(TComplex(-tprime,0.0))/4./m_targ*e0*(2*_xi*Eint0l + (1-_xi)*Eint0h
                        + fac*alphas*(-2.*_xi*Emint0l-(1-_xi)*Emint0h + EBarxi*(TComplex::I()*M_PI-log((1.-_xi)/2./_xi)))
                        + fac*alphas*(2.*_xi*Epint0l+(1-_xi)*Epint0h)));
 
