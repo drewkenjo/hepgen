@@ -57,6 +57,7 @@ typedef struct {
 /*! \brief xi skewness calculation in approximation for compass kinematic */
 inline double compassxi(double _xbj){return _xbj/(2.-_xbj);}
 
+double getEpsilon(double qsq, double xbj, double E0);
 double getTmin(double Q2, double xb);
 
 void SetETbarUCoefs(double c1, double c2, double c3);

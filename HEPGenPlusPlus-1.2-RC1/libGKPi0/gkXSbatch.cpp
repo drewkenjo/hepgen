@@ -56,7 +56,6 @@ int main (int argc, char** argv) {
   myCache.loadCache(argv[argc-1]);
 
   double E0 = 5.75;
-  double m=0.93827203;
   double xbj,qsq,w2,t,phi;
 
   std::ifstream ff(argv[1]);
@@ -71,9 +70,7 @@ int main (int argc, char** argv) {
         w2 = GKPI0::getWsq(qsq,xbj);
       }
 
-      double yy = qsq/(2*m*xbj*E0);
-      double g2 = pow(2*xbj*m,2)/qsq;
-      double eps = (1-yy-0.25*g2*yy*yy)/(1-yy+yy*yy/2.+0.25*g2*yy*yy);
+      double eps = GKPI0::getEpsilon(qsq, xbj, E0);
 
       GKPI0::amplitude myAmp = myCache.getAmpsForKine(qsq,xbj,t);
       double sigmaT = GKPI0::getCX(myAmp,w2);

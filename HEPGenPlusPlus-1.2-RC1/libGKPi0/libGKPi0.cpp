@@ -976,10 +976,20 @@ double getWsq(double _qsq, double _xbj)
     return sqrt(_qsq*(1.-_xbj)/_xbj + pow(m_targ,2.));
 }
 
+
 /*!  \brief returns xbj */
 double getXbj(double _qsq, double _w)
 {
     return -_qsq/(pow(m_targ,2.0)-pow(_w,2.0)-_qsq);
+}
+
+
+double getEpsilon(double qsq, double xbj, double E0)
+{
+   double yy = qsq/(2*m_targ*xbj*E0);
+   double g2 = pow(2*xbj*m_targ, 2)/qsq;
+   double eps = (1-yy-0.25*g2*yy*yy)/(1-yy+yy*yy/2.+0.25*g2*yy*yy);
+   return eps;
 }
 
 

@@ -23,7 +23,6 @@ int main (int argc, char** argv) {
   myCache.loadCache(argv[argc-1]);
 
   double e0 = 0.3028221199;
-  double m=0.93827203;
   double phi = 0;
   double beamE = 5.75;
 
@@ -41,9 +40,7 @@ int main (int argc, char** argv) {
       double w = GKPI0::getWsq(qsq,xbj);
       double xi=GKPI0::compassxi(xbj);
       double tmin = GKPI0::getTmin(qsq, xbj);
-      double yy = qsq/(2*m*xbj*beamE);
-      double g2 = pow(2*xbj*m,2)/qsq;
-      double eps = (1-yy-0.25*g2*yy*yy)/(1-yy+yy*yy/2.+0.25*g2*yy*yy);
+      double eps = GKPI0::getEpsilon(qsq, xbj, beamE);
 
       //std::cout<<qsq<<" "<<xbj<<" "<<t<<" "<<w<<std::endl;
 

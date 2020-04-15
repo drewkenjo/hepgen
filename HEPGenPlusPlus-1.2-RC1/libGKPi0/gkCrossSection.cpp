@@ -45,8 +45,6 @@ int main (int argc, char** argv) {
   }
 
 
-  //double m=0.93827203;
-
   GKPI0::amplitude myAmp;
   t = atof(argv[3]);
   double xi = GKPI0::compassxi(xbj);

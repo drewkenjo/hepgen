@@ -59,9 +59,7 @@ double chisquare(const double *xx) {
     int icache = ich%2;
 
     for(int ip=0;ip<points[ich].size();ip++) {
-      double yy = points[ich][ip].qsq/(2*m*points[ich][ip].xbj*E0);
-      double g2 = pow(2*points[ich][ip].xbj*m,2)/points[ich][ip].qsq;
-      double eps = (1-yy-0.25*g2*yy*yy)/(1-yy+yy*yy/2.+0.25*g2*yy*yy);
+      double eps = GKPI0::getEpsilon(points[ich][ip].qsq, points[ich][ip].xbj, E0);
 
       GKPI0::amplitude myAmp = myCache[icache].getAmpsForKine(points[ich][ip].qsq, points[ich][ip].xbj, points[ich][ip].tt);
       double sT = GKPI0::getCX(myAmp,points[ich][ip].w2);
@@ -101,9 +99,7 @@ int main (int argc, char** argv) {
         double w2nom = GKPI0::getWsq(qnom, xnom);
         double w2 = GKPI0::getWsq(qq, xx);
 
-        double yy = qq/(2*m*xx*E0);
-        double g2 = pow(2*xx*m,2)/qq;
-        double eps = (1-yy-0.25*g2*yy*yy)/(1-yy+yy*yy/2.+0.25*g2*yy*yy);
+        double eps = GKPI0::getEpsilon(qq,xx,E0);
         double tmin = GKPI0::getTmin(qq,xx);
 
         kinpoint pp = {qnom, xnom, w2nom, qq, xx, w2, -tt, s0, ds0, stt, dstt, slt, dslt};
@@ -188,10 +184,6 @@ int main (int argc, char** argv) {
 
     for(double tt=0; tt>-2; tt-=0.1) {
       if(tt<tmin) {
-        double yy = points[ip].qnom/(2*m*points[ip].xnom*E0);
-        double g2 = pow(2*points[ip].xnom*m,2)/points[ip].qnom;
-        double eps = (1-yy-0.25*g2*yy*yy)/(1-yy+yy*yy/2.+0.25*g2*yy*yy);
-
         GKPI0::amplitude myAmp = myCache.getAmpsForKine(points[ip].qnom, points[ip].xnom, tt);
         double sL = GKPI0::getCXL(myAmp,points[ip].w2nom);
         double sT = GKPI0::getCX(myAmp,points[ip].w2nom);
