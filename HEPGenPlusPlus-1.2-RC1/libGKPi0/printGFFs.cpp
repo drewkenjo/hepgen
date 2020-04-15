@@ -25,6 +25,7 @@ int main (int argc, char** argv) {
   double e0 = 0.3028221199;
   double phi = 0;
   double beamE = 5.75;
+  double m_targ = 0.93827208816;
 
   TString prevkin;
   std::ifstream ff(argv[1]);
@@ -56,7 +57,7 @@ int main (int argc, char** argv) {
 //          double sigma0 = sigmaT + eps*sigmaL;
 
           double phaseSpace = GKPI0::getPhaseSpace(w, qsq);
-          double gffETbarsq = -sigmaTT/phaseSpace * 16.*m*m/e0/e0/fabs(tprime);
+          double gffETbarsq = -sigmaTT/phaseSpace * 16.*m_targ*m_targ/e0/e0/fabs(tprime);
           double gffHTsq = (sigmaT+sigmaTT)*2./phaseSpace /e0/e0/(1-xi*xi);
 
           printf("%.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,w,tt,gffETbarsq,gffHTsq);

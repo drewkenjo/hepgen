@@ -40,7 +40,7 @@ int main (int argc, char** argv) {
       double w = GKPI0::getWsq(qsq,xbj);
       double xi=GKPI0::compassxi(xbj);
       double tmin = GKPI0::getTmin(qsq, xbj);
-      double eps = GKPI0::getEpsilone(qsq, xbj, beamE);
+      double eps = GKPI0::getEpsilon(qsq, xbj, beamE);
 
       //std::cout<<qsq<<" "<<xbj<<" "<<t<<" "<<w<<std::endl;
 
