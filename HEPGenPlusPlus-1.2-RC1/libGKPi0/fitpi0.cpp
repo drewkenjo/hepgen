@@ -34,7 +34,6 @@ struct kinpoint {
 };
 
 double E0 = 5.75;
-double m=0.93827203;
 std::vector<kinpoint> points[3];
 gkSubProcessTableCache myCache[2];
 
