@@ -324,7 +324,7 @@ double c_f = 4./3.;
 //euler-mascheroni-constant
 double gammaE = 0.5772156649;
 //proton mass
-//double m=0.93827203;
+double m=0.93827203;
 
 double suda ( double x, double b, double Q ) {
 //     extern double LQCD;
