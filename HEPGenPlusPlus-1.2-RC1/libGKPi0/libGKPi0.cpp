@@ -67,6 +67,8 @@ namespace GKPI0 {
     etbdc5 = c5;
   }
 
+  double m_meson = 0.1349767;
+  double m_targ = 0.93827208816;
 // g* + p--> pi0 + p
   double f_pi=0.132;
   double _mix_angle=1.0/sqrt(2.0);
@@ -322,7 +324,7 @@ double c_f = 4./3.;
 //euler-mascheroni-constant
 double gammaE = 0.5772156649;
 //proton mass
-double m=0.93827203;
+//double m=0.93827203;
 
 double suda ( double x, double b, double Q ) {
 //     extern double LQCD;
@@ -968,6 +970,42 @@ double getPhaseSpace(double _wsq, double _qsq)
 }
 
 
+/*!  \brief returns W (not Wsq as the name says... */
+double getWsq(double _qsq, double _xbj)
+{
+    return sqrt(_qsq*(1.-_xbj)/_xbj + pow(m_targ,2.));
+}
+
+/*!  \brief returns xbj */
+double getXbj(double _qsq, double _w)
+{
+    return -_qsq/(pow(m_targ,2.0)-pow(_w,2.0)-_qsq);
+}
+
+
+double getTmin(double Q2, double xb)
+{
+    double W2 = Q2*(1/xb-1)+m_targ*m_targ;
+    double m12 =-Q2;
+    double m22 = m_targ*m_targ;
+    double m32 = m_meson*m_meson;
+    double m42 = m_targ*m_targ;
+
+    double e1cm = (W2 + m12 - m22) / (2*sqrt(W2));
+    double e3cm = (W2 + m32 - m42) / (2*sqrt(W2));
+
+    if(e1cm<=0 || e3cm<=0) return nan("NaN");
+    double p1cm = pow(e1cm,2) - m12;
+    double p3cm = pow(e3cm,2) - m32;
+
+    if(p1cm<=0 || p3cm<=0) return nan("NaN");
+    p1cm = sqrt(p1cm);
+    p3cm = sqrt(p3cm);
+
+    //return negative values
+    return pow(m12-m32-m22+m42,2)/4.0/W2 - pow(p1cm-p3cm,2.0);
+}
+
 //mu_pi^2 / qsq unterdrueckt twist-3 ggue twist-2 --- qsq=2 twist-3 dominant, qsq=20 - twist-2 dominant
 amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 {
@@ -985,8 +1023,9 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     TComplex Hpint0l ,Hpint0h,Epint0l,Epint0h,Hmint0l,Hmint0h,Emint0l,Emint0h;
     Hpint0h = Hpint0l = Epint0l = Epint0h = Hmint0h = Hmint0l= Emint0h = Emint0l = TComplex(0.0, 0.0);
 
-    double t0 = -4*pow(m,2.0)*pow(_xi,2.0)/(1.-pow(_xi,2.0));
-    double tprime = _t - t0;
+    //double t0 = -4*pow(m,2.0)*pow(_xi,2.0)/(1.-pow(_xi,2.0));
+    double tmin = getTmin(Qsq, _xbj);
+    double tprime = _t - tmin;
 
 
     //twist3 ht, ebar parameters
@@ -1162,6 +1201,8 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 void SetReactionPar(int iflag){
     if (iflag==1) {
 // g*+p-->pi0+p
+      m_meson = 0.1349767;
+      m_targ = 0.93827208816;
       f_pi=0.132;
       _mix_angle=1.0/sqrt(2.0);
       _sign=1.0;
@@ -1169,6 +1210,8 @@ void SetReactionPar(int iflag){
       charge2=-1.0/3.0;
     } else if (iflag==2){
 // g*+p-->eta+p
+      m_meson = 0.547862;
+      m_targ = 0.93827208816;
       f_pi=0.132*1.26;
       _mix_angle=1.158/sqrt(6.0);
       _sign=-1.0;
@@ -1176,6 +1219,8 @@ void SetReactionPar(int iflag){
       charge2=-1.0/3.0;
     } else if(iflag==3){
 // g*+n-->pi0+p
+      m_meson = 0.1349767;
+      m_targ = 0.93956542052;
       f_pi=0.132;
       _mix_angle=1.0/sqrt(2.0);
       _sign=1.0;
@@ -1183,6 +1228,8 @@ void SetReactionPar(int iflag){
       charge2=2.0/3.0;
     } else if (iflag==4){
 // g*+n-->eta+p
+      m_meson = 0.547862;
+      m_targ = 0.93956542052;
       f_pi=0.132*1.26;
       _mix_angle=1.158/sqrt(6.0);
       _sign=-1.0;
@@ -1225,6 +1272,60 @@ double getCXLT(amplitude& _myAmp, double _W, double _phi)
 
     return sigma;
 }
+
+
+double getCXUL1(amplitude& _myAmp, double _W, double _phi)
+{
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/sqrt(2.0);
+    double Mabs =   (_myAmp.M0pp*TComplex::Conjugate(_myAmp.Mppp0+_myAmp.Mpmp0) + TComplex::Conjugate(_myAmp.Mmpp0)*_myAmp.M0mp).Im();
+
+    double sigma =  phaseSpace * Mabs * sin(_phi);
+
+    return sigma;
+}
+
+double getCXLL0(amplitude& _myAmp, double _W, double _phi)
+{
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/2.0;
+    double Mabs =  pow(TComplex::Abs(_myAmp.Mmpp0),2.0);
+
+    double sigma =  phaseSpace * Mabs;
+
+    return sigma;
+}
+
+double getCXLL1(amplitude& _myAmp, double _W, double _phi)
+{
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/sqrt(2.0);
+    double Mabs =   (_myAmp.M0pp*TComplex::Conjugate(_myAmp.Mppp0+_myAmp.Mpmp0) + TComplex::Conjugate(_myAmp.Mmpp0)*_myAmp.M0mp).Re();
+
+    double sigma = -phaseSpace * Mabs * cos(_phi);
+
+    return sigma;
+}
+
+
+double getCXUT0(amplitude& _myAmp, double _W)
+{
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq);
+    double Mabs =  (TComplex::Conjugate(_myAmp.Mppp0)*_myAmp.M0mp + TComplex::Conjugate(_myAmp.Mmpp0)*_myAmp.M0pp).Re();
+
+    double sigma = phaseSpace * Mabs;
+
+    return sigma;
+}
+
+
+double getCXUT1(amplitude& _myAmp, double _W)
+{
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq);
+    double Mabs =  (TComplex::Conjugate(_myAmp.M0mp)*_myAmp.M0pp - TComplex::Conjugate(_myAmp.Mppp0)*_myAmp.Mmpp0).Re();
+
+    double sigma = phaseSpace * Mabs;
+
+    return sigma;
+}
+
 
 
 

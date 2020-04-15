@@ -81,7 +81,6 @@ for (double wCount = 1; wCount < 5; wCount++)
              double xbj = GKPI0::getXbj(qCount,w);
 //              double w2 = GKPI0::getWsq(qCount,xbjC);
              double xi = GKPI0::compassxi(xbj);
-              double t0 = -4*pow(m,2.0)*pow(xi,2.0)/(1.-pow(xi,2.0));
               
               
               printf("Kinematics qsq %.4f, w %.4f xbj %.4f, xi %.4f \n",qCount,w,xbj,xi);
@@ -98,7 +97,7 @@ for (double wCount = 1; wCount < 5; wCount++)
               }
               
               
-              GKPI0::amplitude myAmp =  GKPI0::getAmplitude(qCount,xi,xbj,(-tprimCount)+t0);
+              GKPI0::amplitude myAmp =  GKPI0::getAmplitude(qCount,xi,xbj,(-tprimCount)+tmin);
               double sigma = GKPI0::getCX(myAmp,w);
               myOut<<qCount<<" "<<w << " "<< -tprimCount << " " << sigma << endl;
               cout << qCount<<" "<<w << " "<< -tprimCount << " " << sigma << endl;

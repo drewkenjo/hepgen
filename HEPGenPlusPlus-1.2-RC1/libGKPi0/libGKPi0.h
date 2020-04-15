@@ -57,6 +57,8 @@ typedef struct {
 /*! \brief xi skewness calculation in approximation for compass kinematic */
 inline double compassxi(double _xbj){return _xbj/(2.-_xbj);}
 
+double getTmin(double Q2, double xb);
+
 void SetETbarUCoefs(double c1, double c2, double c3);
 void SetETbarDCoefs(double c1, double c2, double c3, double c4, double c5);
 
@@ -104,10 +106,12 @@ double ETilde ( double xb, double xi, double t, double Qsq, double bu, int n );
 
 
 /*!  \brief returns W (not Wsq as the name says... */
-inline double getWsq(double _qsq,double _xbj){double m = 0.93827203; return sqrt(_qsq*(1.-_xbj)/_xbj + pow(m,2.));}
+//inline double getWsq(double _qsq,double _xbj){double m = 0.93827203; return sqrt(_qsq*(1.-_xbj)/_xbj + pow(m,2.));}
+double getWsq (double _qsq,double _xbj);
 
 /*!  \brief returns xbj */
-inline double getXbj(double _qsq,double _w){double m = 0.93827203; return -_qsq/(pow(m,2.0)-pow(_w,2.0)-_qsq);}
+//inline double getXbj(double _qsq,double _w){double m = 0.93827203; return -_qsq/(pow(m,2.0)-pow(_w,2.0)-_qsq);}
+double getXbj (double _qsq,double _w);
 
 
 double suda (double x, double b, double Q);
@@ -176,6 +180,11 @@ double getCXLT(amplitude& _myAmp, double _W, double _phi);
 /*! \brief calculates the twist-2 long. cross section from getAmplitude() amplitudes
  */
 double getCXL(amplitude& _myAmp, double _W);
+double getCXUL1(amplitude& _myAmp, double _W, double _phi);
+double getCXLL0(amplitude& _myAmp, double _W, double _phi);
+double getCXLL1(amplitude& _myAmp, double _W, double _phi);
+double getCXUT0(amplitude& _myAmp, double _W);
+double getCXUT1(amplitude& _myAmp, double _W);
 
 
 void SetReactionPar(int iflag);

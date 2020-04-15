@@ -24,6 +24,7 @@ int main (int argc, char** argv) {
     return -1;
   }
 
+  GKPI0::SetReactionPar(3);
   double xbj,qsq,w2,t;
   qsq=atof(argv[1]);
   bool useInterPolation = false;
@@ -44,8 +45,6 @@ int main (int argc, char** argv) {
     fileNameInterpolation = argv[argc-1];
   }
 
-
-  //double m=0.93827203;
 
   GKPI0::amplitude myAmp;
   t = atof(argv[3]);

@@ -46,14 +46,12 @@ int main (int argc, char** argv) {
   }
 
 
-  double m=0.93827203;
-
   GKPI0::amplitude myAmp;
   t=atof(argv[3]);
   double xi=GKPI0::compassxi(xbj);
-  double t0 = -4*pow(m,2.0)*pow(xi,2.0)/(1.-pow(xi,2.0));
+  double tmin = GKPI0::getTmin(qsq, xbj);
 
-  double tprime = t-t0;
+  double tprime = t-tmin;
   printf("Final parameters: Q^2 %.4f, W %.4f, xbj %.4e, xi %.4e,t %.4f t' %.4f, phi %.4f\n",qsq,w2,xbj,xi,t,tprime,phi);
   if (!useInterPolation){
 
