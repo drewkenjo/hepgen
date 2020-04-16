@@ -1205,6 +1205,7 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 void SetReactionPar(int iflag){
     if (iflag==1) {
 // g*+p-->pi0+p
+      mu_pi = 2.0;
       m_meson = 0.1349767;
       m_targ = 0.93827208816;
       f_pi=0.132;
@@ -1214,15 +1215,18 @@ void SetReactionPar(int iflag){
       charge2=-1.0/3.0;
     } else if (iflag==2){
 // g*+p-->eta+p
+      mu_pi = 1.7575;
       m_meson = 0.547862;
       m_targ = 0.93827208816;
       f_pi=0.132*1.26;
-      _mix_angle=1.158/sqrt(6.0);
+      //_mix_angle=1.158/sqrt(6.0);
+      _mix_angle = 1.01873/sqrt(6.0);
       _sign=-1.0;
       charge1=2.0/3.0;
       charge2=-1.0/3.0;
     } else if(iflag==3){
 // g*+n-->pi0+p
+      mu_pi = 2.0;
       m_meson = 0.1349767;
       m_targ = 0.93956542052;
       f_pi=0.132;
@@ -1232,10 +1236,12 @@ void SetReactionPar(int iflag){
       charge2=2.0/3.0;
     } else if (iflag==4){
 // g*+n-->eta+p
+      mu_pi = 1.7575;
       m_meson = 0.547862;
       m_targ = 0.93956542052;
       f_pi=0.132*1.26;
-      _mix_angle=1.158/sqrt(6.0);
+      //_mix_angle=1.158/sqrt(6.0);
+      _mix_angle = 1.01873/sqrt(6.0);
       _sign=-1.0;
       charge1=-1.0/3.0;
       charge2=2.0/3.0;
