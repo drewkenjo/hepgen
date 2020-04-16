@@ -35,11 +35,11 @@ int main (int argc, char** argv){
     
      double m = 0.938;
      double t=atof(argv[3]);
-     double xi=GKPI0::compassxi(xbj);
+     double xi=GKPI0::compassxi(qsq, xbj);
      
      
      xbj=0.01;
-     xi=GKPI0::compassxi(xbj);
+     xi=GKPI0::compassxi(qsq, xbj);
      cout << " xi " << xi << endl;
      t=-0.1;
      qsq=4.0;

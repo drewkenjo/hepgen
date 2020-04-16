@@ -38,7 +38,7 @@ int main (int argc, char** argv) {
     if(ff.good() && prevkin != Form("%.5f %.5f", qsq,xbj)) {
       prevkin = Form("%.5f %.5f", qsq,xbj);
       double w = GKPI0::getWsq(qsq,xbj);
-      double xi=GKPI0::compassxi(xbj);
+      double xi=GKPI0::compassxi(qsq, xbj);
       double tmin = GKPI0::getTmin(qsq, xbj);
       double eps = GKPI0::getEpsilon(qsq, xbj, beamE);
 

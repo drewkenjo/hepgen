@@ -102,7 +102,6 @@ int main (int argc, char** argv) {
         double tmin = GKPI0::getTmin(qq,xx);
 
         kinpoint pp = {qnom, xnom, w2nom, qq, xx, w2, -tt, s0, ds0, stt, dstt, slt, dslt};
-        if(!std::isnan(tmin))
         if(tt<1)
           points[ich].push_back(pp);
       }
@@ -179,7 +178,6 @@ int main (int argc, char** argv) {
     prevq = points[ip].qnom;
     prevx = points[ip].xnom;
 
-    double xi=GKPI0::compassxi(points[ip].xnom);
 
     for(double tt=0; tt>-2; tt-=0.1) {
       if(tt<tmin) {

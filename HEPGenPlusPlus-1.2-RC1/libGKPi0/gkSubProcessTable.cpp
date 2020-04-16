@@ -4,7 +4,7 @@
 subProcessAmplitudeLine gkSubProcessTableCache::getLineForKine(double _qsq, double _xbj,int i)
 {
     double W = GKPI0::getWsq(_qsq,_xbj);
-    double xi = GKPI0::compassxi(_xbj);
+    double xi = GKPI0::compassxi(_qsq, _xbj);
     int qbin, wbin;
 
     for (unsigned int q = 0; q < qbins.size(); q++) {
@@ -65,7 +65,7 @@ GKPI0::amplitude gkSubProcessTableCache::getAmpsForKineDoubleWay(double _qsq, do
 {
     GKPI0::amplitude myAmp;
     double W = GKPI0::getWsq(_qsq,_xbj);
-    double xi = GKPI0::compassxi(_xbj);
+    double xi = GKPI0::compassxi(_qsq, _xbj);
 
     //check boundaries
 //     if (W < wbins.front() || W > wbins.back()) {
@@ -172,7 +172,7 @@ GKPI0::amplitude gkSubProcessTableCache::getAmpsForKine(double _qsq, double _xbj
 {
     GKPI0::amplitude myAmp;
     double W = GKPI0::getWsq(_qsq,_xbj);
-    double xi = GKPI0::compassxi(_xbj);
+    double xi = GKPI0::compassxi(_qsq, _xbj);
 
     //check boundaries
     if (W < wbins.front() || W > wbins.back()) {

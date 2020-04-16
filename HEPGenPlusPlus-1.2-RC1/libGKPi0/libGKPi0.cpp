@@ -704,9 +704,6 @@ double imgIntFunc ( const double* _x ) {
 
 TComplex subProcessTwist3GaussInt( double _Qsq, double _x, double _xi , double epsilon ) {
 
-    //private communication with p kroll :D
-    mu_pi = 2.0;
-
     //private communication
 // f_pi=1.26*0.132=0.16632 for eta
 //    f_pi=0.132;
@@ -826,15 +823,6 @@ double intFuncTwist2ImgU(const double* _x) {
 
 double intFuncTwist2RealU(const double* _x) {
     return fullIntFuncTwist2(_x[0],_x[1],0).Re();
-}
-
-
-double getCXTT(amplitude& _myAmp, double _W, double _phi)
-{
-    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/2.;
-    double Mabs =   2. * ( TComplex::Conjugate(_myAmp.Mmpp0)*_myAmp.Mmmp0+ TComplex::Conjugate(_myAmp.Mppp0)*_myAmp.Mpmp0 ).Re();
-    double sigma = - phaseSpace * Mabs * cos(2.*_phi);
-    return sigma;
 }
 
 
@@ -993,6 +981,12 @@ double getEpsilon(double qsq, double xbj, double E0)
 }
 
 
+double compassxi(double _qsq, double _xbj)
+{
+   return (1 + m_meson*m_meson/_qsq)*_xbj/(2-_xbj);
+}
+
+
 double getTmin(double Q2, double xb)
 {
     double W2 = Q2*(1/xb-1)+m_targ*m_targ;
@@ -1004,11 +998,11 @@ double getTmin(double Q2, double xb)
     double e1cm = (W2 + m12 - m22) / (2*sqrt(W2));
     double e3cm = (W2 + m32 - m42) / (2*sqrt(W2));
 
-    if(e1cm<=0 || e3cm<=0) return nan("NaN");
     double p1cm = pow(e1cm,2) - m12;
     double p3cm = pow(e3cm,2) - m32;
 
     if(p1cm<=0 || p3cm<=0) return nan("NaN");
+
     p1cm = sqrt(p1cm);
     p3cm = sqrt(p3cm);
 
@@ -1258,17 +1252,17 @@ void PrintReactionParms(){
 }
 
 
-double getCX(amplitude& _myAmp, double _W) {
-    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/2.;
-    double Mabs = (pow(TComplex::Abs(_myAmp.Mmmp0),2.0) + pow(TComplex::Abs(_myAmp.Mmpp0),2.0) + pow(TComplex::Abs(_myAmp.Mpmp0),2.0) + pow(TComplex::Abs(_myAmp.Mppp0),2.0));
-    double sigma = phaseSpace * Mabs;
-    return sigma;
-}
-
 double getCXL(amplitude& _myAmp, double _W)
 {
     double phaseSpace = getPhaseSpace(_W,_myAmp.qsq);
     double Mabs = (pow(TComplex::Abs(_myAmp.M0pp),2.0) + pow(TComplex::Abs(_myAmp.M0mp),2.0));
+    double sigma = phaseSpace * Mabs;
+    return sigma;
+}
+
+double getCX(amplitude& _myAmp, double _W) {
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/2.;
+    double Mabs = (pow(TComplex::Abs(_myAmp.Mmmp0),2.0) + pow(TComplex::Abs(_myAmp.Mmpp0),2.0) + pow(TComplex::Abs(_myAmp.Mpmp0),2.0) + pow(TComplex::Abs(_myAmp.Mppp0),2.0));
     double sigma = phaseSpace * Mabs;
     return sigma;
 }
@@ -1283,6 +1277,13 @@ double getCXLT(amplitude& _myAmp, double _W, double _phi)
     return sigma;
 }
 
+double getCXTT(amplitude& _myAmp, double _W, double _phi)
+{
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq);
+    double Mabs =   ( TComplex::Conjugate(_myAmp.Mmpp0)*_myAmp.Mmmp0+ TComplex::Conjugate(_myAmp.Mppp0)*_myAmp.Mpmp0 ).Re();
+    double sigma = - phaseSpace * Mabs * cos(2.*_phi);
+    return sigma;
+}
 
 double getCXUL1(amplitude& _myAmp, double _W, double _phi)
 {
@@ -1306,7 +1307,7 @@ double getCXLL0(amplitude& _myAmp, double _W, double _phi)
 
 double getCXLL1(amplitude& _myAmp, double _W, double _phi)
 {
-    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq)/sqrt(2.0);
+    double phaseSpace = getPhaseSpace(_W,_myAmp.qsq);
     double Mabs =   (_myAmp.M0pp*TComplex::Conjugate(_myAmp.Mppp0+_myAmp.Mpmp0) + TComplex::Conjugate(_myAmp.Mmpp0)*_myAmp.M0mp).Re();
 
     double sigma = -phaseSpace * Mabs * cos(_phi);

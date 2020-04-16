@@ -36,11 +36,6 @@ int main (int argc, char** argv) {
          xbj = GKPI0::getXbj(qsq,w2);
       }
 
-      /*
-      double xi=GKPI0::compassxi(xbj);
-      printf("Final parameters: Q^2 %.4f, W %.4f, xbj %.4e, xi %.4e,t %.4f t' %.4f, phi %.4f\n",qsq,w2,xbj,xi,t,tprime,phi);
-      */
-
       for(int ich=0;ich<2;ich++) {
         GKPI0::SetReactionPar(1+ich);
 

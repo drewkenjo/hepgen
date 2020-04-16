@@ -47,7 +47,7 @@ int main (int argc, char** argv) {
 
   GKPI0::amplitude myAmp;
   t = atof(argv[3]);
-  double xi = GKPI0::compassxi(xbj);
+  double xi = GKPI0::compassxi(qsq, xbj);
   double tmin = GKPI0::getTmin(qsq, xbj);
 
   double tprime = t-tmin;
