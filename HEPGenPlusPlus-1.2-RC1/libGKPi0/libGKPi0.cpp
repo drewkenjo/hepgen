@@ -1215,7 +1215,7 @@ void SetReactionPar(int iflag){
       charge2=-1.0/3.0;
     } else if (iflag==2){
 // g*+p-->eta+p
-      mu_pi = 1.7575;
+      mu_pi = 2.0;
       m_meson = 0.547862;
       m_targ = 0.93827208816;
       f_pi=0.132*1.26;
@@ -1236,7 +1236,7 @@ void SetReactionPar(int iflag){
       charge2=2.0/3.0;
     } else if (iflag==4){
 // g*+n-->eta+p
-      mu_pi = 1.7575;
+      mu_pi = 2.0;
       m_meson = 0.547862;
       m_targ = 0.93956542052;
       f_pi=0.132*1.26;
