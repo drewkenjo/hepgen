@@ -25,14 +25,14 @@ target_link_libraries(testGKPi0 GKPi0 ${ROOT_LIBRARIES})
 add_executable(gkCrossSection gkCrossSection.cpp)
 target_link_libraries(gkCrossSection GKPi0 ${ROOT_LIBRARIES})
 
-add_executable(gkCrossSection_pi0n gkCrossSection_pi0n.cpp)
-target_link_libraries(gkCrossSection_pi0n GKPi0 ${ROOT_LIBRARIES})
+add_executable(gkCrossSection_pi0N gkCrossSection_pi0N.cpp)
+target_link_libraries(gkCrossSection_pi0N GKPi0 ${ROOT_LIBRARIES})
 
 add_executable(gkCrossSection_eta gkCrossSection_eta.cpp)
 target_link_libraries(gkCrossSection_eta GKPi0 ${ROOT_LIBRARIES})
 
-add_executable(gkCrossSection_pi0eta gkCrossSection_pi0eta.cpp)
-target_link_libraries(gkCrossSection_pi0eta GKPi0 ${ROOT_LIBRARIES})
+add_executable(gkCrossSection_etaN gkCrossSection_etaN.cpp)
+target_link_libraries(gkCrossSection_etaN GKPi0 ${ROOT_LIBRARIES})
 
 add_executable(gkXSbatch gkXSbatch.cpp)
 target_link_libraries(gkXSbatch GKPi0 ${ROOT_LIBRARIES})
