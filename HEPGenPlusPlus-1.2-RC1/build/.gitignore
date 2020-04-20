@@ -4,3 +4,5 @@
 !getxsec.py
 !genBin.py
 !compile
+!fitpi0.template.cc
+!gkXSbatch.template.cc
