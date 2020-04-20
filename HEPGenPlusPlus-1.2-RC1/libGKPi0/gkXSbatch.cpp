@@ -13,8 +13,8 @@
 #include "gkSubProcessTable.h"
 
 int main (int argc, char** argv) {
-  if (argc != 4) {
-    printf("Usage: %s kinInput -I interpolationCacheIndex\n",argv[0]);
+  if (argc != 2) {
+    printf("Usage: %s kinInput\n",argv[0]);
     return -1;
   }
 
@@ -43,17 +43,34 @@ int main (int argc, char** argv) {
 
 
   std::string fname(argv[1]);
-  int ireaction = 1;
-  if(fname.find("eta")<std::string::npos)
-    ireaction++;
-  if(fname.find("neutron")<std::string::npos)
-    ireaction+=2;
-
-  if(ireaction>1)
-    GKPI0::SetReactionPar(ireaction);
-
   gkSubProcessTableCache myCache;
-  myCache.loadCache(argv[argc-1]);
+
+  if (getenv("HEPGEN") != NULL) {
+    int ireaction = 1;
+    string hepPath = getenv("HEPGEN");
+    hepPath += "/share";
+
+    if(fname.find("neutron")<std::string::npos) {
+      ireaction+=2;
+      hepPath += "/neutron";
+    } else {
+      hepPath += "/proton";
+    }
+
+    if(fname.find("eta")<std::string::npos) {
+      ireaction++;
+      hepPath += "/eta_cache";
+    } else {
+      hepPath += "/pi0_cache";
+    }
+
+    if(ireaction>1)
+      GKPI0::SetReactionPar(ireaction);
+    myCache.loadCache(hepPath+"/tableIndex");
+  } else {
+    printf("$HEPGEN env is not set, do not know where to load grid table values from!\n");
+    return 11;
+  }
 
   double E0 = 5.75;
   double xbj,qsq,w2,t,phi;
@@ -86,7 +103,8 @@ int main (int argc, char** argv) {
       double sigmaUT0 = GKPI0::getCXUT0(myAmp,w2);
       double sigmaUT1 = GKPI0::getCXUT1(myAmp,w2);
 
-      printf("%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,eps,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT,sigmaUL1,sigmaLL0,sigmaLL1,sigmaUT0,sigmaUT1);
+      //printf("%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,eps,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT,sigmaUL1,sigmaLL0,sigmaLL1,sigmaUT0,sigmaUT1);
+      printf("%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT);
     }
   }
 
