@@ -108,7 +108,7 @@ int main (int argc, char** argv) {
         double tmin = GKPI0::getTmin(qq,xx);
 
         kinpoint pp = {qnom, xnom, w2nom, qq, xx, w2, -tt, s0, ds0, stt, dstt, slt, dslt};
-        if(tt<1)
+        if(tt<XXXXX)
           points[ich].push_back(pp);
       }
     }
