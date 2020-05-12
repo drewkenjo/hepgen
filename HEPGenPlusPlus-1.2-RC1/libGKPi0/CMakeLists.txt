@@ -40,6 +40,9 @@ target_link_libraries(gkXSbatch GKPi0 ${ROOT_LIBRARIES})
 add_executable(fitpi0 fitpi0.cpp)
 target_link_libraries(fitpi0 GKPi0 ${ROOT_LIBRARIES})
 
+add_executable(fitpi0_file fitpi0_file.cpp)
+target_link_libraries(fitpi0_file GKPi0 ${ROOT_LIBRARIES})
+
 add_executable(printTheoreticalComparison printTheoreticalComparison.cpp)
 target_link_libraries(printTheoreticalComparison GKPi0 ${ROOT_LIBRARIES})
 
@@ -53,6 +56,6 @@ add_executable(tableNator tableNator.cpp)
 
 
 install (TARGETS GKPi0 DESTINATION lib)
-install (TARGETS gkCrossSection_eta gkCrossSection DESTINATION bin)
+install (TARGETS gkCrossSection_etaN gkCrossSection_pi0N gkCrossSection_eta gkCrossSection DESTINATION bin)
 install (FILES ${gkpi0list} DESTINATION include)
 # install (FILES ${gkpi0listData} DESTINATION share/gkpi0data)

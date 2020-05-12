@@ -6,3 +6,6 @@
 !compile
 !fitpi0.template.cc
 !gkXSbatch.template.cc
+!fitpi0_file.template.cc
+!fitpi0_grid.template.cc
+!dat
