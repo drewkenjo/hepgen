@@ -1358,6 +1358,7 @@ int loadPreparationFromFile(std::string _fileName,double _qsq, double _xi)
     xLow.clear();
     xHigh.clear();
     weights.clear();
+    xpseudoList.clear();
 
     Qsq = _qsq;
     xi = _xi;
