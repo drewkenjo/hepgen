@@ -40,8 +40,8 @@ target_link_libraries(gkXSbatch GKPi0 ${ROOT_LIBRARIES})
 add_executable(fitpi0_prep fitpi0_prep.cpp)
 target_link_libraries(fitpi0_prep GKPi0 ${ROOT_LIBRARIES})
 
-add_executable(fitpi0_file fitpi0_file.cpp)
-target_link_libraries(fitpi0_file GKPi0 ${ROOT_LIBRARIES})
+add_executable(fitpi0_prep fitpi0_prep.cpp)
+target_link_libraries(fitpi0_prep GKPi0 ${ROOT_LIBRARIES})
 
 add_executable(printTheoreticalComparison printTheoreticalComparison.cpp)
 target_link_libraries(printTheoreticalComparison GKPi0 ${ROOT_LIBRARIES})
