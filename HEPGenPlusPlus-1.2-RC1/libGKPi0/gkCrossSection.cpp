@@ -24,21 +24,19 @@ int main (int argc, char** argv) {
     return -1;
   }
 
-  double xbj,qsq,w2,t;
-  qsq=atof(argv[1]);
+  double qsq=atof(argv[1]);
   bool useInterPolation = false;
   double phi = atof(argv[4]);
-  string fileNameInterpolation;
-  if (argc == 6 || argc == 8) {
-    w2=atof(argv[2]);
-//     w2 = pow(w2,2.0);
-     xbj=GKPI0::getXbj(qsq,w2);
-//      w2 = pow(w2,2.0);
-  } else if ( argc == 5 || argc == 7 ) {
-    xbj=atof(argv[2]);
-    w2=GKPI0::getWsq(qsq,xbj);
+
+  double w2 = atof(argv[2]);
+  double xbj = atof(argv[2]);
+  if(w2<1) {
+    w2 = GKPI0::getWsq(qsq,xbj);
+  } else {
+    xbj = GKPI0::getXbj(qsq,w2);
   }
 
+  string fileNameInterpolation;
   if (argc > 6) {
     useInterPolation = true;
     fileNameInterpolation = argv[argc-1];
@@ -46,7 +44,7 @@ int main (int argc, char** argv) {
 
 
   GKPI0::amplitude myAmp;
-  t = atof(argv[3]);
+  double t = atof(argv[3]);
   double xi = GKPI0::compassxi(qsq, xbj);
   double tmin = GKPI0::getTmin(qsq, xbj);
 
