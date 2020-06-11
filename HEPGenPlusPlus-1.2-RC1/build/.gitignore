@@ -9,3 +9,7 @@
 !fitpi0_file.template.cc
 !fitpi0_grid.template.cc
 !dat
+!libGKPi0.template.cpp
+!etaP.bins
+!pi0N.bins
+!pi0P.bins
