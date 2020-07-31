@@ -86,12 +86,17 @@ int main (int argc, char** argv) {
 
 
   //and in the end, calculate the cross section
-  double sigma = GKPI0::getCX(myAmp,w2);
+  double sigmaT = GKPI0::getCX(myAmp,w2);
   double sigmaTT = GKPI0::getCXTT(myAmp,w2,phi);
   double sigmaL = GKPI0::getCXL(myAmp,w2);
   double sigmaLT = GKPI0::getCXLT(myAmp,w2,phi);
 
+  double E0 = 5.75;
+  double eps = GKPI0::getEpsilon(qsq, xbj, E0);
+  double sigma0 = sigmaT + eps*sigmaL;
 
-  printf("Final: %.4f %.4f %.4f dSigmaTot/dt = %.4f + e * %.4f + e* %.4f + sqrt(2e(1+e)) * %.4f\n",qsq,xbj,t,sigma,sigmaL,sigmaTT,sigmaLT);
+  printf("Final: %.4f %.4f %.4f dSigmaTot/dt = %.4f + e * %.4f + e* %.4f + sqrt(2e(1+e)) * %.4f\n",qsq,xbj,t,sigmaT,sigmaL,sigmaTT,sigmaLT);
+  printf("Output: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT);
+
   return 0;
 }

@@ -25,21 +25,19 @@ int main (int argc, char** argv) {
   }
 
   GKPI0::SetReactionPar(2);
-  double xbj,qsq,w2,t;
-  qsq=atof(argv[1]);
+  double qsq=atof(argv[1]);
   bool useInterPolation = false;
   double phi = atof(argv[4]);
-  string fileNameInterpolation;
-  if (argc == 6 || argc == 8) {
-    w2=atof(argv[2]);
-//     w2 = pow(w2,2.0);
-     xbj=GKPI0::getXbj(qsq,w2);
-//      w2 = pow(w2,2.0);
-  } else if ( argc == 5 || argc == 7 ) {
-    xbj=atof(argv[2]);
-    w2=GKPI0::getWsq(qsq,xbj);
+
+  double w2 = atof(argv[2]);
+  double xbj = atof(argv[2]);
+  if(w2<1) {
+    w2 = GKPI0::getWsq(qsq,xbj);
+  } else {
+    xbj = GKPI0::getXbj(qsq,w2);
   }
 
+  string fileNameInterpolation;
   if (argc > 6) {
     useInterPolation = true;
     fileNameInterpolation = argv[argc-1];
@@ -47,8 +45,8 @@ int main (int argc, char** argv) {
 
 
   GKPI0::amplitude myAmp;
-  t=atof(argv[3]);
-  double xi=GKPI0::compassxi(qsq, xbj);
+  double t = atof(argv[3]);
+  double xi = GKPI0::compassxi(qsq, xbj);
   double tmin = GKPI0::getTmin(qsq, xbj);
 
   double tprime = t-tmin;
@@ -89,12 +87,17 @@ int main (int argc, char** argv) {
 
 
   //and in the end, calculate the cross section
-  double sigma = GKPI0::getCX(myAmp,w2);
+  double sigmaT = GKPI0::getCX(myAmp,w2);
   double sigmaTT = GKPI0::getCXTT(myAmp,w2,phi);
   double sigmaL = GKPI0::getCXL(myAmp,w2);
   double sigmaLT = GKPI0::getCXLT(myAmp,w2,phi);
 
+  double E0 = 5.75;
+  double eps = GKPI0::getEpsilon(qsq, xbj, E0);
+  double sigma0 = sigmaT + eps*sigmaL;
 
-  printf("Final: %.4f %.4f %.4f dSigmaTot/dt = %.4f + e * %.4f + e* %.4f + sqrt(2e(1+e)) * %.4f\n",qsq,xbj,t,sigma,sigmaL,sigmaTT,sigmaLT);
+  printf("Final: %.4f %.4f %.4f dSigmaTot/dt = %.4f + e * %.4f + e* %.4f + sqrt(2e(1+e)) * %.4f\n",qsq,xbj,t,sigmaT,sigmaL,sigmaTT,sigmaLT);
+  printf("Output: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT);
+
   return 0;
 }
