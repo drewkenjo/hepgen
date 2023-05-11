@@ -53,7 +53,7 @@ prepvecs readFile(std::string fileName) {
   myInFile.open(fileName,std::ios::in);
 
   if (!myInFile.good()) {
-    std::cout<<"file is not found"<<std::endl;
+    std::cout<<"file is not found "<<fileName<<std::endl;
     exit(111);
   }
 
