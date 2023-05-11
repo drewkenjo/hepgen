@@ -154,6 +154,8 @@ double hi ( double i, int flag, double xb, double xi, double t, double Qsq, doub
         double mhi = 0.3e1 / 0.2e1 / ( double ) t1 / ( double ) xi / ( double ) ( 1 + i - k ) / ( double ) t7 / ( double ) ( 3 + i - k ) * ( double ) ( ( t1 - xb ) * ( t17 - t22 ) + xi * ( 1 - xb ) * t7 * ( t17 + t22 ) );
         return mhi;
     }
+
+    return 0;
 }
 
 
@@ -493,6 +495,8 @@ double HTildeHi(double ii, int HiFlag, double k) {
                 - pow(( (x-xi)/(1.-xi)),(2.+ii-k)))
                 + xi*(1.-x)*(2.+ii-k)*( pow(((x+xi)/(1.+xi)),(2.+ii-k))+pow(((x-xi)/(1.-xi)),(2.+ii-k))));
     }
+
+    return 0;
 }
 
 //checked with p.k. 4.4.16
@@ -913,6 +917,8 @@ int loadIntegrationValues(double _xi)
         xHigh.push_back((1.-_xi)*xPseudo+_xi);
         xpseudoList.push_back(xPseudo);
     }
+
+    return 0;
 }
 
 
@@ -1424,6 +1430,8 @@ int savePreparationToRam(double xbj, std::vector< TComplex >& xlowTwist3, std::v
     xlow = xLow;
     xhigh = xHigh;
     oweights = weights;
+
+    return 0;
 }
 
 
@@ -1454,6 +1462,8 @@ int loadPreparationFromRam(double _xbj, std::vector<TComplex>& _xlowTwist3,std::
 
     weights = _weights;
     xpseudoList = _xpseudo;
+
+    return 0;
 }
 
 
