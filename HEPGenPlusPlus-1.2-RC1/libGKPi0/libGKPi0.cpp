@@ -1424,6 +1424,8 @@ int savePreparationToRam(double xbj, std::vector< TComplex >& xlowTwist3, std::v
     xlow = xLow;
     xhigh = xHigh;
     oweights = weights;
+
+    return 0;
 }
 
 
@@ -1454,6 +1456,8 @@ int loadPreparationFromRam(double _xbj, std::vector<TComplex>& _xlowTwist3,std::
 
     weights = _weights;
     xpseudoList = _xpseudo;
+
+    return 0;
 }
 
 
