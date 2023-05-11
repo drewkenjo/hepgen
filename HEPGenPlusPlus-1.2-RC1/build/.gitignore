@@ -13,3 +13,7 @@
 !etaP.bins
 !pi0N.bins
 !pi0P.bins
+!makepreps.sh
+!makevers.sh
+!plotvers.sh
+!switch.sh
