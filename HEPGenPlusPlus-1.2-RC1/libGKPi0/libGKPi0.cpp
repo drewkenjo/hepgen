@@ -21,6 +21,8 @@ namespace GKPI0 {
   double deltaU = 0.3, deltaD = 0.3;
   double alphastrU = 0.45, alphastrD = 0.45;
 
+  //PARSPARS
+
   void SetAlpha0U(double _alpha) {
     deltaU = _alpha;
   }
@@ -1226,7 +1228,7 @@ void SetReactionPar(int iflag){
       m_targ = 0.93827208816;
       f_pi=0.132*1.26;
       //_mix_angle=1.158/sqrt(6.0);
-      _mix_angle = 1.01873/sqrt(6.0);
+      _mix_angle = 1.158/sqrt(6.0);
       _sign=-1.0;
       charge1=2.0/3.0;
       charge2=-1.0/3.0;
@@ -1247,7 +1249,7 @@ void SetReactionPar(int iflag){
       m_targ = 0.93956542052;
       f_pi=0.132*1.26;
       //_mix_angle=1.158/sqrt(6.0);
-      _mix_angle = 1.01873/sqrt(6.0);
+      _mix_angle = 1.158/sqrt(6.0);
       _sign=-1.0;
       charge1=-1.0/3.0;
       charge2=2.0/3.0;
