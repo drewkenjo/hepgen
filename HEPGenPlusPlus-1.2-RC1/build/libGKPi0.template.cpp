@@ -11,15 +11,15 @@ namespace GKPI0 {
 
   double etbuc1 = 1, etbuc2 = 0, etbuc3 = -1;
   double etbdc1 = 1, etbdc2 = 0, etbdc3 = -2, etbdc4 = 0, etbdc5 = 1;
-  double etbu = 0.5, etbd = 0.5;
-  //double etNu = 4.83, etNd = 3.57;
-  double etNu = 2.0747, etNd = 1.3451;
 
-
+//  double etNu = 4.83, etNd = 3.57;
 //  double alphastr = 0.45;
 //  double delta = 0.3;
-  double alphastrU = 0.45, alphastrD = 0.45;
+
+  double etNu = 2.0747, etNd = 1.3451;
+  double etbu = 0.5, etbd = 0.5;
   double deltaU = 0.3, deltaD = 0.3;
+  double alphastrU = 0.45, alphastrD = 0.45;
 
   void SetAlpha0U(double _alpha) {
     deltaU = _alpha;
