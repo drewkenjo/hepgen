@@ -245,7 +245,7 @@ int main (int argc, char** argv) {
   std::cout << "Minimum: f(): " << min->MinValue()  << std::endl;
 
   int nsize = points[0].size() + points[1].size() + points[2].size();
-  status.Append(Form(" %f %f", min->MinValue(), nsize));
+  status.Append(Form(" %f %d", min->MinValue(), nsize));
 
   for(int ic=0;ic<npars;ic++) {
     double errLow = errs[ic], errUp = errs[ic];
