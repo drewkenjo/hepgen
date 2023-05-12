@@ -232,7 +232,7 @@ int main (int argc, char** argv) {
   for(int ic=0;ic<npars;ic++) {
     double errLow, errUp;
 //    min->GetMinosError(ic, errLow, errUp);
-    std::cout<<"fitpi0: "<<xs[ic]<<" "<<errLow<<" "<<errUp<<std::endl;
+    std::cout<<"fitpi0_parameters: "<<xs[ic]<<" "<<errLow<<" "<<errUp<<std::endl;
   }
 
   std::cout<<"fitpi0_npoints: "<<points[0].size() + points[1].size() + points[2].size()<<std::endl;
