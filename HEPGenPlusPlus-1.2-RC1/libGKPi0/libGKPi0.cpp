@@ -1468,9 +1468,8 @@ int loadPreparationFromRam(double _xbj, std::vector<TComplex>& _xlowTwist3,std::
 
 
 
-
-
-
+double get_mix_angle() {return _mix_angle;};
+double get_mu_pi() {return mu_pi;};
 
 };
 

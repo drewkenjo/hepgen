@@ -204,6 +204,9 @@ double besselK0 ( double x );
 /*! \brief cylindrical bessel function of 0. order */
 double I0 ( double a, double b );
 
+double get_mix_angle();
+double get_mu_pi();
+
 
 };
 
