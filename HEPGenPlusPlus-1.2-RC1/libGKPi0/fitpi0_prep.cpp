@@ -154,7 +154,7 @@ int main (int argc, char** argv) {
   for(int ich=0;ich<3;ich++) {
     GKPI0::SetReactionPar(1+ich);
 
-    if(ich==2) {
+    if(ich==1) {
       if(GKPI0::get_mix_angle()*sqrt(6) < 1.1) status.Prepend("newmix");
       else status.Prepend("oldmix");
     }
@@ -186,6 +186,8 @@ int main (int argc, char** argv) {
     }
     ff.close();
   }
+
+  std::cout<<status<<std::endl;
 
   std::cout<<"npoints: "<<points[0].size() + points[1].size() + points[2].size()<<std::endl;
   ROOT::Math::Minimizer* min = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Migrad");
