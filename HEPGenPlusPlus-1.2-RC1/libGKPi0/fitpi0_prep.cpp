@@ -15,6 +15,7 @@
 #include "libGKPi0.h"
 #include "gkSubProcessTable.h"
 #include "TString.h"
+#include "TDatime.h"
 
 struct prepvecs {
   std::vector<double> weights;
@@ -148,8 +149,18 @@ int main (int argc, char** argv) {
 
   std::string hepPath = getenv("HEPGEN");
 
+  TString status;
+
   for(int ich=0;ich<3;ich++) {
     GKPI0::SetReactionPar(1+ich);
+
+    if(ich==2) {
+      if(GKPI0::get_mix_angle()*sqrt(6) < 1.1) status.Prepend("newmix");
+      else status.Prepend("oldmix");
+    }
+    status.Append(Form("_%.2f",GKPI0::get_mu_pi()));
+
+
     std::ifstream ff(argv[ich+1]);
     while(ff.good()) {
       double qnom,xnom,qq,xb,tt,s0,ds0,dds0,slt,dslt,ddslt,stt,dstt,ddstt;
@@ -228,14 +239,25 @@ int main (int argc, char** argv) {
 
   min->Minimize();
   const double *xs = min->X();
+  const double *errs = min->Errors();
   std::cout << "Minimum: f(): " << min->MinValue()  << std::endl;
+
+  int nsize = points[0].size() + points[1].size() + points[2].size();
+  status.Append(Form(" %f %f", min->MinValue(), nsize));
+
   for(int ic=0;ic<npars;ic++) {
-    double errLow, errUp;
+    double errLow = errs[ic], errUp = errs[ic];
 //    min->GetMinosError(ic, errLow, errUp);
     std::cout<<"fitpi0_parameters: "<<xs[ic]<<" "<<errLow<<" "<<errUp<<std::endl;
+    status.Append(Form(" %f %f %f", xs[ic], errLow, errUp));
   }
+  std::cout<<"fitpi0_npoints: "<<nsize<<std::endl;
 
-  std::cout<<"fitpi0_npoints: "<<points[0].size() + points[1].size() + points[2].size()<<std::endl;
+  TDatime out;
+  auto outff = fopen(Form("%d%02d%02d_%06d.fitoutput", out.GetYear(), out.GetMonth(), out.GetDay(), out.GetTime()), "w");
+  status.Puts(outff);
+  fclose(outff);
+
   /*
   double prevq=0, prevx=0;
   for(int ip=0;ip<points.size();ip++) {
