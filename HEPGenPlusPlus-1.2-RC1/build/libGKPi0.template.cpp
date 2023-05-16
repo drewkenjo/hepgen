@@ -16,12 +16,7 @@ namespace GKPI0 {
 //  double alphastr = 0.45;
 //  double delta = 0.3;
 
-  double etNu = 2.0747, etNd = 1.3451;
-  double etbu = 0.5, etbd = 0.5;
-  double deltaU = 0.3, deltaD = 0.3;
-  double alphastrU = 0.45, alphastrD = 0.45;
-
-  //PARSPARS
+  double etNu = 2.0747, etNd = 1.3451, etbu = 0.5, etbd = 0.5, deltaU = 0.3, deltaD = 0.3, alphastrU = 0.45, alphastrD = 0.45;
 
   void SetAlpha0U(double _alpha) {
     deltaU = _alpha;
