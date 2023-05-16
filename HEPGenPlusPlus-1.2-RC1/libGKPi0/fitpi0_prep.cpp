@@ -256,7 +256,7 @@ int main (int argc, char** argv) {
   std::cout<<"fitpi0_npoints: "<<nsize<<std::endl;
 
   TDatime out;
-  auto outff = fopen(Form("%d%02d%02d_%06d.fitoutput", out.GetYear(), out.GetMonth(), out.GetDay(), out.GetTime()), "w");
+  auto outff = fopen(Form("%d%02d%02d_%06d_%s_fitoutput", out.GetYear(), out.GetMonth(), out.GetDay(), out.GetTime(), status(0,status.First(" ")).Data()), "w");
   status.Puts(outff);
   fclose(outff);
 

@@ -16,12 +16,7 @@ namespace GKPI0 {
 //  double alphastr = 0.45;
 //  double delta = 0.3;
 
-  double etNu = 2.0747, etNd = 1.3451;
-  double etbu = 0.5, etbd = 0.5;
-  double deltaU = 0.3, deltaD = 0.3;
-  double alphastrU = 0.45, alphastrD = 0.45;
-
-  //PARSPARS
+  double etNu = 2.776994, etNd = 2.103412, etbu = 0.491282, etbd = -3.327087, deltaU = -0.047912, alphastrU = 0.384567, deltaD = 0.600263, alphastrD = 2.881546;
 
   void SetAlpha0U(double _alpha) {
     deltaU = _alpha;
@@ -1223,12 +1218,12 @@ void SetReactionPar(int iflag){
       charge2=-1.0/3.0;
     } else if (iflag==2){
 // g*+p-->eta+p
-      mu_pi = 2.0;
+      mu_pi = 1.76;
       m_meson = 0.547862;
       m_targ = 0.93827208816;
       f_pi=0.132*1.26;
       //_mix_angle=1.158/sqrt(6.0);
-      _mix_angle = 1.158/sqrt(6.0);
+      _mix_angle = 1.01873/sqrt(6.0);
       _sign=-1.0;
       charge1=2.0/3.0;
       charge2=-1.0/3.0;
@@ -1244,12 +1239,12 @@ void SetReactionPar(int iflag){
       charge2=2.0/3.0;
     } else if (iflag==4){
 // g*+n-->eta+p
-      mu_pi = 2.0;
+      mu_pi = 1.76;
       m_meson = 0.547862;
       m_targ = 0.93956542052;
       f_pi=0.132*1.26;
       //_mix_angle=1.158/sqrt(6.0);
-      _mix_angle = 1.158/sqrt(6.0);
+      _mix_angle = 1.01873/sqrt(6.0);
       _sign=-1.0;
       charge1=-1.0/3.0;
       charge2=2.0/3.0;
