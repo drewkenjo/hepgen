@@ -45,12 +45,12 @@ int main (int argc, char** argv) {
 
 
   GKPI0::amplitude myAmp;
-  double t = atof(argv[3]);
+  double tt = atof(argv[3]);
   double xi = GKPI0::compassxi(qsq, xbj);
   double tmin = GKPI0::getTmin(qsq, xbj);
 
-  double tprime = t-tmin;
-  printf("Final parameters: Q^2 %.4f, W %.4f, xbj %.4e, xi %.4e,t %.4f t' %.4f, phi %.4f\n",qsq,w2,xbj,xi,t,tprime,phi);
+  double tprime = tt-tmin;
+  printf("Final parameters: Q^2 %.4f, W %.4f, xbj %.4e, xi %.4e,t %.4f t' %.4f, phi %.4f\n",qsq,w2,xbj,xi,tt,tprime,phi);
   if (!useInterPolation){
 
     char buffer[200];
@@ -71,11 +71,11 @@ int main (int argc, char** argv) {
     }
 
     //finally calculate amplitudes
-    myAmp =  GKPI0::getAmplitude(qsq,xi,xbj,t);
+    myAmp =  GKPI0::getAmplitude(qsq,xi,xbj,tt);
   } else {
     gkSubProcessTableCache myCache;
     myCache.loadCache(fileNameInterpolation);
-    myAmp = myCache.getAmpsForKine(qsq,xbj,t);
+    myAmp = myCache.getAmpsForKine(qsq,xbj,tt);
   }
 
   printf("Amplituden: \n");
@@ -96,8 +96,8 @@ int main (int argc, char** argv) {
   double eps = GKPI0::getEpsilon(qsq, xbj, E0);
   double sigma0 = sigmaT + eps*sigmaL;
 
-  printf("Final: %.4f %.4f %.4f dSigmaTot/dt = %.4f + e * %.4f + e* %.4f + sqrt(2e(1+e)) * %.4f\n",qsq,xbj,t,sigmaT,sigmaL,sigmaTT,sigmaLT);
-  printf("Output: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,t,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT);
+  printf("Final: %.4f %.4f %.4f dSigmaTot/dt = %.4f + e * %.4f + e* %.4f + sqrt(2e(1+e)) * %.4f\n",qsq,xbj,tt,sigmaT,sigmaL,sigmaTT,sigmaLT);
+  printf("Output: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,tt,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT);
 
   return 0;
 }
