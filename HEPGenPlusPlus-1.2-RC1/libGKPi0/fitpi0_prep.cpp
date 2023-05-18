@@ -178,7 +178,7 @@ int main (int argc, char** argv) {
         double tmin = GKPI0::getTmin(qq, xb);
 
         kinpoint pp = {qnom, xnom, wnom, qq, xb, ww, xi, -tt, s0, ds0, stt, dstt, slt, dslt};
-        if(tt<1) {
+        if(tt<10) {
           points[ich].push_back(pp);
           preps[ich].push_back(readFile(buffer));
         }
@@ -256,7 +256,8 @@ int main (int argc, char** argv) {
   std::cout<<"fitpi0_npoints: "<<nsize<<std::endl;
 
   TDatime out;
-  auto outff = fopen(Form("%d%02d%02d_%06d_%s_fitoutput", out.GetYear(), out.GetMonth(), out.GetDay(), out.GetTime(), status(0,status.First(" ")).Data()), "w");
+  TString suf(status(0,status.First(" ")));
+  auto outff = fopen(Form("%d%02d%02d_%06d_%s_%d.fitoutput", out.GetYear(), out.GetMonth(), out.GetDay(), out.GetTime(), suf.Data(), nsize), "w");
   status.Puts(outff);
   fclose(outff);
 
