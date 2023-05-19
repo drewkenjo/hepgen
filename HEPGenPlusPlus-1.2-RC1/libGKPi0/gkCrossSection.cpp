@@ -96,7 +96,7 @@ int main (int argc, char** argv) {
   double sigma0 = sigmaT + eps*sigmaL;
 
   printf("Final: %.4f %.4f %.4f dSigmaTot/dt = %.4f + e * %.4f + e* %.4f + sqrt(2e(1+e)) * %.4f\n",qsq,xbj,tt,sigmaT,sigmaL,sigmaTT,sigmaLT);
-  printf("Output: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,tt,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT);
+  printf("Output: %.4f %.4f %.8f %.4f %.4f %.4f %.4f %.4f\n",qsq,xbj,tt,sigma0,sigmaT,sigmaL,sigmaTT,sigmaLT);
 
   return 0;
 }
