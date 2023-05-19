@@ -21,6 +21,17 @@ namespace GKPI0 {
 
   double etNu = 2.0747, etNd = 1.3451, etbu = 0.5, etbd = 0.5, deltaU = 0.3, deltaD = 0.3, alphastrU = 0.45, alphastrD = 0.45;
 
+  void set_fit_parameters(double _etNu, double _etNd, double _etbu, double _etbd, double _deltaU, double _deltaD, double _alphastrU, double _alphastrD) {
+    etNu = _etNu;
+    etNd = _etNd;
+    etbu = _etbu;
+    etbd = _etbd;
+    deltaU = _deltaU;
+    deltaD = _deltaD;
+    alphastrU = _alphastrU;
+    alphastrD = _alphastrD;
+  }
+
   void SetAlpha0U(double _alpha) {
     deltaU = _alpha;
   }
@@ -1468,8 +1479,14 @@ int loadPreparationFromRam(double _xbj, std::vector<TComplex>& _xlowTwist3,std::
 
 
 
-double get_mix_angle() {return _mix_angle;};
-double get_mu_pi() {return mu_pi;};
+double get_mix_angle() {
+  return _mix_angle;
+}
+
+
+double get_mu_pi() {
+  return mu_pi;
+}
 
 
 
@@ -1477,12 +1494,12 @@ double get_mu_pi() {return mu_pi;};
 void set_new_eta_mixing_angle(bool _new) {
   if(_new) eta_mixing_angle = 1.01873;
   else eta_mixing_angle = 1.158;
-};
+}
 
 
 void set_mu_eta(double _mu_eta) {
   mu_eta_constant = _mu_eta;
-};
+}
 
 
 
