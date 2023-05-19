@@ -21,14 +21,14 @@ namespace GKPI0 {
 
   double etNu = 2.0747, etNd = 1.3451, etbu = 0.5, etbd = 0.5, deltaU = 0.3, deltaD = 0.3, alphastrU = 0.45, alphastrD = 0.45;
 
-  void set_fit_parameters(double _etNu, double _etNd, double _etbu, double _etbd, double _deltaU, double _deltaD, double _alphastrU, double _alphastrD) {
+  void set_fit_parameters(double _etNu, double _etNd, double _etbu, double _etbd, double _deltaU, double _alphastrU, double _deltaD, double _alphastrD) {
     etNu = _etNu;
     etNd = _etNd;
     etbu = _etbu;
     etbd = _etbd;
     deltaU = _deltaU;
-    deltaD = _deltaD;
     alphastrU = _alphastrU;
+    deltaD = _deltaD;
     alphastrD = _alphastrD;
   }
 
