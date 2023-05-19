@@ -9,6 +9,9 @@ using std::endl;
 
 namespace GKPI0 {
 
+  double eta_mixing_angle = 1.158;
+  double mu_eta_constant = 2.0;
+
   double etbuc1 = 1, etbuc2 = 0, etbuc3 = -1;
   double etbdc1 = 1, etbdc2 = 0, etbdc3 = -2, etbdc4 = 0, etbdc5 = 1;
 
@@ -16,7 +19,7 @@ namespace GKPI0 {
 //  double alphastr = 0.45;
 //  double delta = 0.3;
 
-  double etNu = 2.776994, etNd = 2.103412, etbu = 0.491282, etbd = -3.327087, deltaU = -0.047912, alphastrU = 0.384567, deltaD = 0.600263, alphastrD = 2.881546;
+  double etNu = 2.0747, etNd = 1.3451, etbu = 0.5, etbd = 0.5, deltaU = 0.3, deltaD = 0.3, alphastrU = 0.45, alphastrD = 0.45;
 
   void SetAlpha0U(double _alpha) {
     deltaU = _alpha;
@@ -1205,7 +1208,7 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 }
 
 //vpk
-void SetReactionPar(int iflag){
+void SetReactionPar(int iflag) {
     if (iflag==1) {
 // g*+p-->pi0+p
       mu_pi = 2.0;
@@ -1218,12 +1221,12 @@ void SetReactionPar(int iflag){
       charge2=-1.0/3.0;
     } else if (iflag==2){
 // g*+p-->eta+p
-      mu_pi = 1.76;
+      mu_pi = mu_eta_constant;
       m_meson = 0.547862;
       m_targ = 0.93827208816;
       f_pi=0.132*1.26;
       //_mix_angle=1.158/sqrt(6.0);
-      _mix_angle = 1.01873/sqrt(6.0);
+      _mix_angle = eta_mixing_angle/sqrt(6.0);
       _sign=-1.0;
       charge1=2.0/3.0;
       charge2=-1.0/3.0;
@@ -1239,12 +1242,12 @@ void SetReactionPar(int iflag){
       charge2=2.0/3.0;
     } else if (iflag==4){
 // g*+n-->eta+p
-      mu_pi = 1.76;
+      mu_pi = mu_eta_constant;
       m_meson = 0.547862;
       m_targ = 0.93956542052;
       f_pi=0.132*1.26;
       //_mix_angle=1.158/sqrt(6.0);
-      _mix_angle = 1.01873/sqrt(6.0);
+      _mix_angle = eta_mixing_angle/sqrt(6.0);
       _sign=-1.0;
       charge1=-1.0/3.0;
       charge2=2.0/3.0;
@@ -1467,6 +1470,21 @@ int loadPreparationFromRam(double _xbj, std::vector<TComplex>& _xlowTwist3,std::
 
 double get_mix_angle() {return _mix_angle;};
 double get_mu_pi() {return mu_pi;};
+
+
+
+
+void set_new_eta_mixing_angle(bool _new) {
+  if(_new) eta_mixing_angle = 1.01873;
+  else eta_mixing_angle = 1.158;
+};
+
+
+void set_mu_eta(double _mu_eta) {
+  mu_eta_constant = _mu_eta;
+};
+
+
 
 };
 
