@@ -124,7 +124,6 @@ double chisquare(const double *xx) {
       double sLT = GKPI0::getCXLT(myAmp,points[ich][ip].ww, 0);
       double s0 = sT + eps*sL;
 
-
 //      chi2 += pow((points[ich][ip].s0 - s0)/points[ich][ip].ds0, 2);
 //      chi2 += pow((points[ich][ip].sLT - sLT)/points[ich][ip].dsLT, 2);
       chi2 += pow((points[ich][ip].sTT - sTT)/points[ich][ip].dsTT, 2);
@@ -136,32 +135,45 @@ double chisquare(const double *xx) {
 
 
 int main (int argc, char** argv) {
-  if (argc != 6) {
-    printf("Usage: %s pi0Data etaData pi0onNeutron pi0Index etaIndex\n",argv[0]);
-    return -1;
-  }
-
-  double phi = 0;
   if (getenv("HEPGEN") == NULL) {
     printf("$HEPGEN env is not set, do not know where to load grid table values from!\n");
     return 11;
   }
 
   std::string hepPath = getenv("HEPGEN");
+  TString status("oldmix_200");
 
-  TString status;
+  TString prepdirs[] = {"pi0P/mu.eq.2", "etaP/mu.eq.2", "pi0N/mu.eq.2"};
+  for(int iarg=1;iarg<argc;iarg++) {
+    TString arg(argv[iarg]);
+    int ich = 0;
 
-  for(int ich=0;ich<3;ich++) {
+    if(arg.EqualTo("-newmix")) {
+      GKPI0::set_new_eta_mixing_angle(true);
+      status.ReplaceAll("oldmix", "newmix");
+      continue;
+
+    } else if(arg.EqualTo("-176")) {
+      GKPI0::set_mu_eta(1.76);
+      prepdirs[1] = "etaP/mu.eq.1.76";
+      status.ReplaceAll("200", "176");
+      continue;
+
+    } else if(arg.Contains("neutron")) {
+      ich = 2;
+
+    } else if(arg.Contains("eta")) {
+      ich = 1;
+
+    } else {
+      ich = 0;
+    }
+
+    
+    TString prepdir(prepdirs[ich]);
     GKPI0::SetReactionPar(1+ich);
 
-    if(ich==1) {
-      if(GKPI0::get_mix_angle()*sqrt(6) < 1.1) status.Prepend("newmix");
-      else status.Prepend("oldmix");
-    }
-    status.Append(Form("_%.2f",GKPI0::get_mu_pi()));
-
-
-    std::ifstream ff(argv[ich+1]);
+    std::ifstream ff(argv[iarg]);
     while(ff.good()) {
       double qnom,xnom,qq,xb,tt,s0,ds0,dds0,slt,dslt,ddslt,stt,dstt,ddstt;
       ff>>qnom>>xnom>>qq>>xb>>tt>>s0>>ds0>>dds0>>slt>>dslt>>ddslt>>stt>>dstt>>ddstt;
@@ -170,18 +182,18 @@ int main (int argc, char** argv) {
         double wnom = GKPI0::getWsq(qnom, xnom);
         double ww = GKPI0::getWsq(qq, xb);
         double xi = GKPI0::compassxi(qq, xb);
-
-        string folder[] = {"pi0P","etaP","pi0N"};
-        char buffer[200];
-        sprintf(buffer,"preparation/%s/preparation_%.4f_%.4f.dat",folder[ich].c_str(),qq,ww);
-
         double tmin = GKPI0::getTmin(qq, xb);
 
-        kinpoint pp = {qnom, xnom, wnom, qq, xb, ww, xi, -tt, s0, ds0, stt, dstt, slt, dslt};
-        if(tt<10) {
-          points[ich].push_back(pp);
-          preps[ich].push_back(readFile(buffer));
+        TString prepname(Form("preparation/%s/preparation_%.4f_%.4f.dat",prepdir.Data(),qq,ww));
+        std::ifstream fprep(prepname.Data());
+        if(!fprep.good()) {
+          std::cerr<<"file "<<prepname<<" does NOT exist!!!!"<<std::endl;
+          return 111;
         }
+
+        kinpoint pp = {qnom, xnom, wnom, qq, xb, ww, xi, -tt, s0, ds0, stt, dstt, slt, dslt};
+        points[ich].push_back(pp);
+        preps[ich].push_back(readFile(prepname.Data()));
       }
     }
     ff.close();
