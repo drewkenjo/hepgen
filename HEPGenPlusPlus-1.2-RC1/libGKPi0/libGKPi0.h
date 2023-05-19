@@ -207,6 +207,8 @@ double I0 ( double a, double b );
 double get_mix_angle();
 double get_mu_pi();
 
+void set_new_eta_mixing_angle(bool _new);
+void set_mu_eta(double _muEta);
 
 };
 
