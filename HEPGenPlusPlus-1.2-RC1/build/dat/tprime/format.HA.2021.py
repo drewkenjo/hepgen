@@ -29,7 +29,8 @@ with open(sys.argv[1]) as ff:
     mt = mt + abs(tmin)
 
     out = ["{:.2f}".format(vv) for vv in [qnom,xnom,Q2,xb]]
-    out += ["{:.2f}".format(vv) for vv in [mt,s0,ds0,dds0]]
+    out += ["{:.4f}".format(mt)]
+    out += ["{:.2f}".format(vv) for vv in [s0,ds0,dds0]]
     out += ["{:.2f}".format(vv) for vv in [slt,dslt,ddslt]]
     out += ["{:.2f}".format(vv) for vv in [stt,dstt,ddstt, E0]]
 
