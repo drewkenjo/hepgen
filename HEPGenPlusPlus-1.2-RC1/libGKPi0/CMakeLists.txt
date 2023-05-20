@@ -25,20 +25,14 @@ target_link_libraries(testGKPi0 GKPi0 ${ROOT_LIBRARIES})
 add_executable(gkCrossSection gkCrossSection.cpp)
 target_link_libraries(gkCrossSection GKPi0 ${ROOT_LIBRARIES})
 
-add_executable(gkCrossSection_pi0N gkCrossSection_pi0N.cpp)
-target_link_libraries(gkCrossSection_pi0N GKPi0 ${ROOT_LIBRARIES})
-
-add_executable(gkCrossSection_eta gkCrossSection_eta.cpp)
-target_link_libraries(gkCrossSection_eta GKPi0 ${ROOT_LIBRARIES})
-
-add_executable(gkCrossSection_etaN gkCrossSection_etaN.cpp)
-target_link_libraries(gkCrossSection_etaN GKPi0 ${ROOT_LIBRARIES})
-
 add_executable(gkXSbatch gkXSbatch.cpp)
 target_link_libraries(gkXSbatch GKPi0 ${ROOT_LIBRARIES})
 
-add_executable(fitpi0_prep fitpi0_prep.cpp)
-target_link_libraries(fitpi0_prep GKPi0 ${ROOT_LIBRARIES})
+add_executable(fitHT_prep fitHT_prep.cpp)
+target_link_libraries(fitHT_prep GKPi0 ${ROOT_LIBRARIES})
+
+add_executable(fitETbar_prep fitETbar_prep.cpp)
+target_link_libraries(fitETbar_prep GKPi0 ${ROOT_LIBRARIES})
 
 add_executable(fitpi0_grid fitpi0_grid.cpp)
 target_link_libraries(fitpi0_grid GKPi0 ${ROOT_LIBRARIES})
@@ -56,6 +50,6 @@ add_executable(tableNator tableNator.cpp)
 
 
 install (TARGETS GKPi0 DESTINATION lib)
-install (TARGETS gkCrossSection_etaN gkCrossSection_pi0N gkCrossSection_eta gkCrossSection DESTINATION bin)
+install (TARGETS gkCrossSection DESTINATION bin)
 install (FILES ${gkpi0list} DESTINATION include)
 # install (FILES ${gkpi0listData} DESTINATION share/gkpi0data)
