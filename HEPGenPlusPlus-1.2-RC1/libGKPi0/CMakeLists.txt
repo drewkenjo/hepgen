@@ -34,9 +34,6 @@ target_link_libraries(fitHT_prep GKPi0 ${ROOT_LIBRARIES})
 add_executable(fitETbar_prep fitETbar_prep.cpp)
 target_link_libraries(fitETbar_prep GKPi0 ${ROOT_LIBRARIES})
 
-add_executable(fitpi0_grid fitpi0_grid.cpp)
-target_link_libraries(fitpi0_grid GKPi0 ${ROOT_LIBRARIES})
-
 add_executable(printTheoreticalComparison printTheoreticalComparison.cpp)
 target_link_libraries(printTheoreticalComparison GKPi0 ${ROOT_LIBRARIES})
 

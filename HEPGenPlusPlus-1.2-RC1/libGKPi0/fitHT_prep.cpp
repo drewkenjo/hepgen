@@ -145,7 +145,6 @@ int main (int argc, char** argv) {
   for(int iarg=1;iarg<argc;iarg++) {
     TString arg(argv[iarg]);
     int ich = 0;
-    double E0 = 5.75;
 
     if(arg.EqualTo("-newmix")) {
       GKPI0::set_new_eta_mixing_angle(true);
@@ -172,8 +171,6 @@ int main (int argc, char** argv) {
       ich = 0;
     }
 
-    if(arg.Contains("hallA.pi0.y21")) E0 = 10;
-    else if(arg.Contains("compass")) E0 = 160;
 
     
     TString prepdir(prepdirs[ich]);
@@ -181,8 +178,8 @@ int main (int argc, char** argv) {
 
     std::ifstream ff(argv[iarg]);
     while(ff.good()) {
-      double qnom,xnom,qq,xb,tt,s0,ds0,dds0,slt,dslt,ddslt,stt,dstt,ddstt;
-      ff>>qnom>>xnom>>qq>>xb>>tt>>s0>>ds0>>dds0>>slt>>dslt>>ddslt>>stt>>dstt>>ddstt;
+      double qnom,xnom,qq,xb,tt,s0,ds0,dds0,slt,dslt,ddslt,stt,dstt,ddstt,E0;
+      ff>>qnom>>xnom>>qq>>xb>>tt>>s0>>ds0>>dds0>>slt>>dslt>>ddslt>>stt>>dstt>>ddstt>>E0;
 
       if(ff.good()) {
         double ww = GKPI0::getWsq(qq, xb);
