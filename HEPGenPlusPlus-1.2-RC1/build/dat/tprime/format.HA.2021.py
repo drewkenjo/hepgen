@@ -7,7 +7,7 @@ m_targ,m_meson = 0.93827208816,0.1349767
 with open(sys.argv[1]) as ff:
   for line in ff:
     lls = line.split()
-    qnom,xnom,Q2,xb,mt,s0,ds0,dds0,slt,dslt,ddslt,stt,dstt,ddstt = [float(ll) for ll in lls]
+    qnom,xnom,Q2,xb,mt,s0,ds0,dds0,slt,dslt,ddslt,stt,dstt,ddstt,E0 = [float(ll) for ll in lls]
 
     W2 = Q2*(1/xb-1)+m_targ*m_targ;
     m12 =-Q2;
@@ -28,10 +28,11 @@ with open(sys.argv[1]) as ff:
 
     mt = mt + abs(tmin)
 
-    lls[4] = "{:.4f}".format(mt)
+    out = ["{:.2f}".format(vv) for vv in [qnom,xnom,Q2,xb]]
+    out += ["{:.2f}".format(vv) for vv in [mt,s0,ds0,dds0]]
+    out += ["{:.2f}".format(vv) for vv in [slt,dslt,ddslt]]
+    out += ["{:.2f}".format(vv) for vv in [stt,dstt,ddstt, E0]]
 
-    print(tmin)
-
-    print(" ".join(lls))
+    print("\t".join(out))
 
 
