@@ -19,49 +19,61 @@ namespace GKPI0 {
 //  double alphastr = 0.45;
 //  double delta = 0.3;
 
-  double etNu = 2.0747, etNd = 1.3451, etbu = 0.5, etbd = 0.5, deltaU = 0.3, deltaD = 0.3, alphastrU = 0.45, alphastrD = 0.45;
+  double eTnu = 2.0747, eTnd = 1.3451, eTbu = 0.5, eTbd = 0.5, eTdeltaU = 0.3, eTdeltaD = 0.3, eTalphastrU = 0.45, eTalphastrD = 0.45;
+  double hTnu = 1.1, hTnd = -0.3, hTbu=0.3, hTbd=0.3, hTdeltaU = 0.33-0.5, hTdeltaD = 0.33-0.5, hTalphastrU = 0.45, hTalphastrD = 0.45;
 
-  void set_fit_parameters(double _etNu, double _etNd, double _etbu, double _etbd, double _deltaU, double _alphastrU, double _deltaD, double _alphastrD) {
-    etNu = _etNu;
-    etNd = _etNd;
-    etbu = _etbu;
-    etbd = _etbd;
-    deltaU = _deltaU;
-    alphastrU = _alphastrU;
-    deltaD = _deltaD;
-    alphastrD = _alphastrD;
+  void set_ETbar_pars(double _nu, double _nd, double _bu, double _bd, double _deltaU, double _alphastrU, double _deltaD, double _alphastrD) {
+    eTnu = _nu;
+    eTnd = _nd;
+    eTbu = _bu;
+    eTbd = _bd;
+    eTdeltaU = _deltaU;
+    eTalphastrU = _alphastrU;
+    eTdeltaD = _deltaD;
+    eTalphastrD = _alphastrD;
+  }
+
+  void set_HT_pars(double _Nu, double _Nd, double _bu, double _bd, double _deltaU, double _alphastrU, double _deltaD, double _alphastrD) {
+    hTnu = _Nu;
+    hTnd = _Nd;
+    hTbu = _bu;
+    hTbd = _bd;
+    hTdeltaU = _deltaU;
+    hTalphastrU = _alphastrU;
+    hTdeltaD = _deltaD;
+    hTalphastrD = _alphastrD;
   }
 
   void SetAlpha0U(double _alpha) {
-    deltaU = _alpha;
+    eTdeltaU = _alpha;
   }
 
   void SetAlphaStrU(double _alpha) {
-    alphastrU = _alpha;
+    eTalphastrU = _alpha;
   }
 
   void SetAlpha0D(double _alpha) {
-    deltaD = _alpha;
+    eTdeltaD = _alpha;
   }
 
   void SetAlphaStrD(double _alpha) {
-    alphastrD = _alpha;
+    eTalphastrD = _alpha;
   }
 
   void SetETbarUtSlope(double bu) {
-    etbu = bu;
+    eTbu = bu;
   }
 
   void SetETbarDtSlope(double bd) {
-    etbd = bd;
+    eTbd = bd;
   }
 
   void SetETbarUNorm(double nu) {
-    etNu = nu;
+    eTnu = nu;
   }
 
   void SetETbarDNorm(double nd) {
-    etNd = nd;
+    eTnd = nd;
   }
 
   void SetETbarUCoefs(double c1, double c2, double c3) {
@@ -204,11 +216,11 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
     // delta=0.3;
     // delta=-0.1;
 
-    double k = deltaU + alphastrU * t;
+    double k = eTdeltaU + eTalphastrU * t;
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
-    double nu = etNu/(ROOT::Math::tgamma(1-deltaU)*ROOT::Math::tgamma(1+4)/ROOT::Math::tgamma(2-deltaU+4));
+    double nu = eTnu/(ROOT::Math::tgamma(1-eTdeltaU)*ROOT::Math::tgamma(1+4)/ROOT::Math::tgamma(2-eTdeltaU+4));
 
     int hiFlag = -1;
 
@@ -238,7 +250,7 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
     //vpk
     // delta=0.3;
     // delta=-0.1;
-    double k = deltaD + alphastrD * t;
+    double k = eTdeltaD + eTalphastrD * t;
 
     //vpk
     //double Nd = 5.05;
@@ -246,7 +258,7 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
     double xdiff = xb - xi;
     double xsum = xb + xi;
 
-    double Nd = etNd/(ROOT::Math::tgamma(1-deltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-deltaD+5));
+    double Nd = eTnd/(ROOT::Math::tgamma(1-eTdeltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-eTdeltaD+5));
 
     int hiFlag = -1;
 
@@ -269,7 +281,6 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
 double HTValence ( double xb, double xi, double t, double Qsq, double bu, int n ) {
 
     double L = log ( Qsq / Q0 );
-    double Nu[2] = {1.1, -0.3};
 
     double c[2][7] = {  {3.653, -0.583, 19.807, -23.487, -23.46, 24.07, 0.0},
         {1.924, 0.179, -7.775, 3.504, 5.851, -3.683, 0.0}
@@ -277,11 +288,13 @@ double HTValence ( double xb, double xi, double t, double Qsq, double bu, int n 
 
     int indexN = n - 1;
 
-    double deltaVal = 0.33-0.5;
-
-    //0916_newParams
-    double alphaStrNeu = 0.45;
-
+    double Nu = hTnu/(ROOT::Math::tgamma(1-hTdeltaU)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-hTdeltaU+5));
+    double deltaVal = hTdeltaU, alphaStrNeu = hTalphastrU;
+    if(n==2) {
+      Nu = hTnd/(ROOT::Math::tgamma(1-hTdeltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-hTdeltaD+5));
+      deltaVal = hTdeltaD;
+      alphaStrNeu = hTalphastrD;
+    }
 
 
     double k = deltaVal + alphaStrNeu * t;
@@ -306,7 +319,7 @@ double HTValence ( double xb, double xi, double t, double Qsq, double bu, int n 
     for ( int j = 0; j < 6; j++ ) {
         A += c[indexN][j] * hi ( j / 2., hiFlag, xb, xi, t, Qsq, bu, k );
     }
-    return Nu[indexN] * exp ( bu * t ) * A;
+    return Nu * exp ( bu * t ) * A;
 }
 
 //double LQCD = 0.181;
@@ -1051,8 +1064,6 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 
     //twist3 ht, ebar parameters
 
-    double hbd=0.3;
-    double hbu=0.3;
 
 
     //0916 newParams
@@ -1106,8 +1117,8 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     double HTxi,EBarxi;
     //for cauchy principal value we need the poles K(x=xi,xi,t) ! also in the form of the upper GPDs
 
-    EBarxi = ETBarReFac*     _mix_angle*(charge1*EBarU(_xi,_xi,_t,_qsq,etbu)      -_sign*charge2*EBarD(_xi,_xi,_t,_qsq,etbd));
-    HTxi   = HTValenzReFac*  _mix_angle*(charge1*HTValence(_xi,_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(_xi,_xi,_t,_qsq,hbd,2));
+    EBarxi = ETBarReFac*     _mix_angle*(charge1*EBarU(_xi,_xi,_t,_qsq,eTbu)      -_sign*charge2*EBarD(_xi,_xi,_t,_qsq,eTbd));
+    HTxi   = HTValenzReFac*  _mix_angle*(charge1*HTValence(_xi,_xi,_t,_qsq,hTbu,1)-_sign*charge2*HTValence(_xi,_xi,_t,_qsq,hTbd,2));
 
     //printf("EBarxi %.4e, HTValxi %.4e\n",EBarxi,HTxi);
 
@@ -1132,10 +1143,10 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
         ebarl = ebarh=HTl = HTh = 0.0;
         //build GPDs ala K(3) = 1/sqrt(2) (e_u*K^u-e_d*K^d) -- eq (14) from Kroll note
 
-        ebarh = ETBarReFac* _mix_angle*(charge1*EBarU(xHigh[i],_xi,_t,_qsq,etbu)-_sign*charge2*EBarD(xHigh[i],_xi,_t,_qsq,etbd));
-        ebarl = ETBarReFac* _mix_angle*(charge1*EBarU(xLow[i],_xi,_t,_qsq,etbu) -_sign*charge2*EBarD(xLow[i],_xi,_t,_qsq,etbd));
-        HTh =  HTValenzReFac* _mix_angle*(charge1*HTValence(xHigh[i],_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(xHigh[i],_xi,_t,_qsq,hbd,2));
-        HTl =  HTValenzReFac* _mix_angle*(charge1*HTValence(xLow[i],_xi,_t,_qsq,hbu,1)-_sign*charge2*HTValence(xLow[i],_xi,_t,_qsq,hbd,2));
+        ebarh = ETBarReFac* _mix_angle*(charge1*EBarU(xHigh[i],_xi,_t,_qsq,eTbu)-_sign*charge2*EBarD(xHigh[i],_xi,_t,_qsq,eTbd));
+        ebarl = ETBarReFac* _mix_angle*(charge1*EBarU(xLow[i],_xi,_t,_qsq,eTbu) -_sign*charge2*EBarD(xLow[i],_xi,_t,_qsq,eTbd));
+        HTh =  HTValenzReFac* _mix_angle*(charge1*HTValence(xHigh[i],_xi,_t,_qsq,hTbu,1)-_sign*charge2*HTValence(xHigh[i],_xi,_t,_qsq,hTbd,2));
+        HTl =  HTValenzReFac* _mix_angle*(charge1*HTValence(xLow[i],_xi,_t,_qsq,hTbu,1)-_sign*charge2*HTValence(xLow[i],_xi,_t,_qsq,hTbd,2));
 
         //integrate the convolutions
         Eint0l=Eint0l+weights[i]*xLowResult[i]*ebarl;

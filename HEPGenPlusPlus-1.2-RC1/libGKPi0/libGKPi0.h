@@ -210,7 +210,8 @@ double get_mu_pi();
 void set_new_eta_mixing_angle(bool _new);
 void set_mu_eta(double _muEta);
 
-void set_fit_parameters(double _etNu, double _etNd, double _etbu, double _etbd, double _deltaU, double _deltaD, double _alphastrU, double _alphastrD);
+void set_ETbar_pars(double _nu, double _nd, double _bu, double _bd, double _deltaU, double _deltaD, double _alphastrU, double _alphastrD);
+void set_HT_pars(double _nu, double _nd, double _bu, double _bd, double _deltaU, double _deltaD, double _alphastrU, double _alphastrD);
 
 };
 
