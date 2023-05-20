@@ -1,0 +1,6 @@
+Here is the structure of the file:
+1st column is Q^2 (GeV^2)
+2nd column is tmin-t (GeV^2)
+3rd column is the cross section (mubarn/GeV^2)
+4th column is statistical uncertainty
+5th column is systematic uncertainty
