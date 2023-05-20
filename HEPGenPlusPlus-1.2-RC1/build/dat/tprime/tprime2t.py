@@ -30,6 +30,8 @@ with open(sys.argv[1]) as ff:
 
     lls[4] = "{:.4f}".format(mt)
 
+    print(tmin)
+
     print(" ".join(lls))
 
 
