@@ -30,6 +30,8 @@ int main (int argc, char** argv) {
       GKPI0::set_new_eta_mixing_angle(true);
     } else if(arg.Contains("-176")) {
       GKPI0::set_mu_eta(1.76);
+    } else if(arg.Contains("-etaneutron")) {
+      GKPI0::SetReactionPar(4);
     } else if(arg.Contains("-eta")) {
       GKPI0::SetReactionPar(2);
     } else if(arg.Contains("-neutron")) {
@@ -45,8 +47,8 @@ int main (int argc, char** argv) {
     xbj = kins[1];
     w2 = kins[1];
 
-    if(kins.size()==3) {
-      tt = kins[2];
+    if(kins.size()>=3) {
+      tt = -fabs(kins[2]);
     } else if(kins.size()==4) {
       phi = kins[3];
     }

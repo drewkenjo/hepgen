@@ -9,86 +9,72 @@ using std::endl;
 
 namespace GKPI0 {
 
+  int iflag = 1;
   double eta_mixing_angle = 1.158;
   double mu_eta_constant = 2.0;
 
   double etbuc1 = 1, etbuc2 = 0, etbuc3 = -1;
   double etbdc1 = 1, etbdc2 = 0, etbdc3 = -2, etbdc4 = 0, etbdc5 = 1;
 
-//  double etNu = 4.83, etNd = 3.57;
+////  original parameters
+//  double etNu = 4.83 * 0.429537 (normalization) = 2.07466371
+//  double etNd = 3.57 * 0.376787 (normalization) = 1.34512959
+//  double hTnu = 1.10 * 0.754518 (normalization) = 0.8299698
+//  double hTnd = -0.3 * 0.173649 (normalization) = -0.0520947
+
+
+////  even more original parameters :)
+//  double etNu = 6.83 * 0.429537 (normalization) = 2.93373771
+//  double etNd = 5.05 * 0.376787 (normalization) = 1.90277435
+//  double hTnu = 1.10 * 0.754518 (normalization) = 0.8299698
+//  double hTnd = -0.3 * 0.173649 (normalization) = -0.0520947
+
+
+
+
 //  double alphastr = 0.45;
 //  double delta = 0.3;
 
-  double eTnu = 2.0747, eTnd = 1.3451, eTbu = 0.5, eTbd = 0.5, eTdeltaU = 0.3, eTdeltaD = 0.3, eTalphastrU = 0.45, eTalphastrD = 0.45;
-  double hTnu = 1.1, hTnd = -0.3, hTbu=0.3, hTbd=0.3, hTdeltaU = 0.33-0.5, hTdeltaD = 0.33-0.5, hTalphastrU = 0.45, hTalphastrD = 0.45;
 
-  void set_ETbar_pars(double _nu, double _nd, double _bu, double _bd, double _deltaU, double _alphastrU, double _deltaD, double _alphastrD) {
+  //double eTnu = 2.0747, eTnd = 1.3451, eTbu = 0.5, eTbd = 0.5, eTdeltaU = 0.3, eTdeltaD = 0.3, eTalphastrU = 0.45, eTalphastrD = 0.45;
+  //double hTnu = 1.1, hTnd = -0.3, hTbu=0.3, hTbd=0.3, hTdeltaU = 0.33-0.5, hTdeltaD = 0.33-0.5, hTalphastrU = 0.45, hTalphastrD = 0.45;
+
+  double eTnu = 2.07466371, eTnd = 1.34512959, eTbu = 0.5, eTbd = 0.5, eTdeltaU = 0.3, eTdeltaD = 0.3, eTalphastrU = 0.45, eTalphastrD = 0.45;
+  double hTnu = 0.8299698, hTnd = -0.0520947, hTbu=0.3, hTbd=0.3, hTdeltaU = 0.33-0.5, hTdeltaD = 0.33-0.5, hTalphastrU = 0.45, hTalphastrD = 0.45;
+
+
+
+  void set_ETbar_pars(double _nu, double _nd, double _bu, double _bd, double _deltaU, double _deltaD, double _alphastrU, double _alphastrD) {
     eTnu = _nu;
     eTnd = _nd;
+
     eTbu = _bu;
     eTbd = _bd;
+
     eTdeltaU = _deltaU;
-    eTalphastrU = _alphastrU;
     eTdeltaD = _deltaD;
+
+    eTalphastrU = _alphastrU;
     eTalphastrD = _alphastrD;
   }
 
-  void set_HT_pars(double _Nu, double _Nd, double _bu, double _bd, double _deltaU, double _alphastrU, double _deltaD, double _alphastrD) {
-    hTnu = _Nu;
-    hTnd = _Nd;
+
+
+  void set_HT_pars(double _nu, double _nd, double _bu, double _bd, double _deltaU, double _deltaD, double _alphastrU, double _alphastrD) {
+    hTnu = _nu;
+    hTnd = _nd;
+
     hTbu = _bu;
     hTbd = _bd;
+
     hTdeltaU = _deltaU;
-    hTalphastrU = _alphastrU;
     hTdeltaD = _deltaD;
+
+    hTalphastrU = _alphastrU;
     hTalphastrD = _alphastrD;
   }
 
-  void SetAlpha0U(double _alpha) {
-    eTdeltaU = _alpha;
-  }
 
-  void SetAlphaStrU(double _alpha) {
-    eTalphastrU = _alpha;
-  }
-
-  void SetAlpha0D(double _alpha) {
-    eTdeltaD = _alpha;
-  }
-
-  void SetAlphaStrD(double _alpha) {
-    eTalphastrD = _alpha;
-  }
-
-  void SetETbarUtSlope(double bu) {
-    eTbu = bu;
-  }
-
-  void SetETbarDtSlope(double bd) {
-    eTbd = bd;
-  }
-
-  void SetETbarUNorm(double nu) {
-    eTnu = nu;
-  }
-
-  void SetETbarDNorm(double nd) {
-    eTnd = nd;
-  }
-
-  void SetETbarUCoefs(double c1, double c2, double c3) {
-    etbuc1 = c1;
-    etbuc2 = c2;
-    etbuc3 = c3;
-  }
-
-  void SetETbarDCoefs(double c1, double c2, double c3, double c4, double c5) {
-    etbdc1 = c1;
-    etbdc2 = c2;
-    etbdc3 = c3;
-    etbdc4 = c4;
-    etbdc5 = c5;
-  }
 
   double m_meson = 0.1349767;
   double m_targ = 0.93827208816;
@@ -221,6 +207,8 @@ double EBarU ( double xb, double xi, double t, double Qsq, double bu ) {
     double xsum = xb + xi;
 
     double nu = eTnu/(ROOT::Math::tgamma(1-eTdeltaU)*ROOT::Math::tgamma(1+4)/ROOT::Math::tgamma(2-eTdeltaU+4));
+    //nu = eTnu;
+    //std::cerr<<nu<<" "<<eTnu<<" "<<eTdeltaU<<" "<<eTalphastrU<<" kim"<<endl;
 
     int hiFlag = -1;
 
@@ -259,6 +247,8 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
     double xsum = xb + xi;
 
     double Nd = eTnd/(ROOT::Math::tgamma(1-eTdeltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-eTdeltaD+5));
+    //Nd = eTnd;
+    //std::cerr<<Nd<<" "<<eTnd<<" "<<eTdeltaD<<" "<<eTalphastrD<<" kim"<<endl;
 
     int hiFlag = -1;
 
@@ -276,6 +266,10 @@ double EBarD ( double xb, double xi, double t, double Qsq, double bd ) {
     return Nd * exp ( bd * t ) * A ;
 
 }
+
+double compute_integral_term (double alpha0, double a) {
+  return (1 / (a + 1 - alpha0)) - (3 / (a + 2 - alpha0)) + (3 / (a + 3 - alpha0)) - (1 / (a + 4 - alpha0));
+}
 //n=1: u quarks
 //n=2: d quarks
 double HTValence ( double xb, double xi, double t, double Qsq, double bu, int n ) {
@@ -288,13 +282,28 @@ double HTValence ( double xb, double xi, double t, double Qsq, double bu, int n 
 
     int indexN = n - 1;
 
-    double Nu = hTnu/(ROOT::Math::tgamma(1-hTdeltaU)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-hTdeltaU+5));
-    double deltaVal = hTdeltaU, alphaStrNeu = hTalphastrU;
+    double Nu = hTnu;
+    // Nu = hTnu/(ROOT::Math::tgamma(1-hTdeltaU)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-hTdeltaU+5));
+
+    double deltaVal = hTdeltaU;
+    double alphaStrNeu = hTalphastrU;
     if(n==2) {
-      Nu = hTnd/(ROOT::Math::tgamma(1-hTdeltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-hTdeltaD+5));
+      Nu = hTnd;
+      // Nu = hTnd/(ROOT::Math::tgamma(1-hTdeltaD)*ROOT::Math::tgamma(1+5)/ROOT::Math::tgamma(2-hTdeltaD+5));
+
       deltaVal = hTdeltaD;
       alphaStrNeu = hTalphastrD;
     }
+
+    double I_0 = compute_integral_term(deltaVal, 0);
+    double I_05 = compute_integral_term(deltaVal, 0.5);
+    double I_1 = compute_integral_term(deltaVal, 1);
+    double I_15 = compute_integral_term(deltaVal, 1.5);
+    double I_2 = compute_integral_term(deltaVal, 2);
+    double I_25 = compute_integral_term(deltaVal, 2.5);
+    double integral_result = c[indexN][0] * I_0 + c[indexN][1] * I_05 + c[indexN][2] * I_1 + c[indexN][3] * I_15 + c[indexN][4] * I_2 + c[indexN][5] * I_25;
+    Nu = Nu/integral_result;
+    //std::cerr<<"HT "<<n<<" "<<integral_result<<endl;
 
 
     double k = deltaVal + alphaStrNeu * t;
@@ -319,7 +328,8 @@ double HTValence ( double xb, double xi, double t, double Qsq, double bu, int n 
     for ( int j = 0; j < 6; j++ ) {
         A += c[indexN][j] * hi ( j / 2., hiFlag, xb, xi, t, Qsq, bu, k );
     }
-    return Nu * exp ( bu * t ) * A;
+    double ret = Nu * exp ( bu * t ) * A;
+    return ret;
 }
 
 //double LQCD = 0.181;
@@ -1013,7 +1023,8 @@ double getEpsilon(double qsq, double xbj, double E0)
 
 double compassxi(double _qsq, double _xbj)
 {
-   return (1 + m_meson*m_meson/_qsq)*_xbj/(2-_xbj);
+   return _xbj/(2-_xbj);
+   //return (1 + m_meson*m_meson/_qsq)*_xbj/(2-_xbj);
 }
 
 
@@ -1043,6 +1054,7 @@ double getTmin(double Q2, double xb)
 //mu_pi^2 / qsq unterdrueckt twist-3 ggue twist-2 --- qsq=2 twist-3 dominant, qsq=20 - twist-2 dominant
 amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 {
+    _t = -fabs(_t);
     double alphas = (12.*M_PI/(33-2*nf)/log(_qsq/2/pow(LQCD,2.0)));
     double fac = 16.*M_PI*(c_f/n_c)*f_pi*mu_pi*pow(a_p,2.0);
     Qsq = _qsq;
@@ -1057,8 +1069,11 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
     TComplex Hpint0l ,Hpint0h,Epint0l,Epint0h,Hmint0l,Hmint0h,Emint0l,Emint0h;
     Hpint0h = Hpint0l = Epint0l = Epint0h = Hmint0h = Hmint0l= Emint0h = Emint0l = TComplex(0.0, 0.0);
 
-    //double t0 = -4*pow(m,2.0)*pow(_xi,2.0)/(1.-pow(_xi,2.0));
+    //double t0 = -4*pow(m_targ,2.0)*pow(_xi,2.0)/(1.-pow(_xi,2.0));
+    //double tprime = _t - t0;
+
     double tmin = getTmin(Qsq, _xbj);
+    tmin = -4*pow(m_targ,2.0)*pow(_xi,2.0)/(1.-pow(_xi,2.0));
     double tprime = _t - tmin;
 
 
@@ -1230,7 +1245,8 @@ amplitude getAmplitude(double _qsq,double _xi,double _xbj, double _t)
 }
 
 //vpk
-void SetReactionPar(int iflag) {
+void SetReactionPar(int _iflag) {
+    iflag = _iflag;
     if (iflag==1) {
 // g*+p-->pi0+p
       mu_pi = 2.0;
@@ -1253,7 +1269,7 @@ void SetReactionPar(int iflag) {
       charge1=2.0/3.0;
       charge2=-1.0/3.0;
     } else if(iflag==3){
-// g*+n-->pi0+p
+// g*+n-->pi0+n
       mu_pi = 2.0;
       m_meson = 0.1349767;
       m_targ = 0.93956542052;
@@ -1263,7 +1279,7 @@ void SetReactionPar(int iflag) {
       charge1=-1.0/3.0;
       charge2=2.0/3.0;
     } else if (iflag==4){
-// g*+n-->eta+p
+// g*+n-->eta+n
       mu_pi = mu_eta_constant;
       m_meson = 0.547862;
       m_targ = 0.93956542052;
@@ -1505,11 +1521,13 @@ double get_mu_pi() {
 void set_new_eta_mixing_angle(bool _new) {
   if(_new) eta_mixing_angle = 1.01873;
   else eta_mixing_angle = 1.158;
+  SetReactionPar(iflag);
 }
 
 
 void set_mu_eta(double _mu_eta) {
   mu_eta_constant = _mu_eta;
+  SetReactionPar(iflag);
 }
 
 
